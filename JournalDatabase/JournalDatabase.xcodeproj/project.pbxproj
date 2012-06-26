@@ -1,0 +1,347 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6DE55AE115994299002DBC02 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE55AE015994299002DBC02 /* UIKit.framework */; };
+		6DE55AE315994299002DBC02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE55AE215994299002DBC02 /* Foundation.framework */; };
+		6DE55AE515994299002DBC02 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE55AE415994299002DBC02 /* CoreGraphics.framework */; };
+		6DE55AEB15994299002DBC02 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6DE55AE915994299002DBC02 /* InfoPlist.strings */; };
+		6DE55AED15994299002DBC02 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55AEC15994299002DBC02 /* main.m */; };
+		6DE55AF115994299002DBC02 /* journalAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55AF015994299002DBC02 /* journalAppDelegate.m */; };
+		6DE55AF415994299002DBC02 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DE55AF215994299002DBC02 /* MainStoryboard.storyboard */; };
+		6DE55AF715994299002DBC02 /* journalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55AF615994299002DBC02 /* journalViewController.m */; };
+		6DE55AFF1599440B002DBC02 /* JournalDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55AFD1599440B002DBC02 /* JournalDatabase.xcdatamodeld */; };
+		6DE55B621599548A002DBC02 /* Entry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B611599548A002DBC02 /* Entry.m */; };
+		6DE55B651599548A002DBC02 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B641599548A002DBC02 /* User.m */; };
+		6DE55B681599548A002DBC02 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B671599548A002DBC02 /* Login.m */; };
+		6DE55B6B1599548A002DBC02 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B6A1599548A002DBC02 /* Photo.m */; };
+		6DE55B6E1599548A002DBC02 /* CheckIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B6D1599548A002DBC02 /* CheckIn.m */; };
+		6DE55B711599548A002DBC02 /* Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B701599548A002DBC02 /* Status.m */; };
+		6DE55B741599548A002DBC02 /* Audio.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B731599548A002DBC02 /* Audio.m */; };
+		6DE55B771599548A002DBC02 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55B761599548A002DBC02 /* Note.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		6DE55ADC15994299002DBC02 /* JournalDatabase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JournalDatabase.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DE55AE015994299002DBC02 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		6DE55AE215994299002DBC02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		6DE55AE415994299002DBC02 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		6DE55AE815994299002DBC02 /* JournalDatabase-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JournalDatabase-Info.plist"; sourceTree = "<group>"; };
+		6DE55AEA15994299002DBC02 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		6DE55AEC15994299002DBC02 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6DE55AEE15994299002DBC02 /* JournalDatabase-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JournalDatabase-Prefix.pch"; sourceTree = "<group>"; };
+		6DE55AEF15994299002DBC02 /* journalAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = journalAppDelegate.h; sourceTree = "<group>"; };
+		6DE55AF015994299002DBC02 /* journalAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = journalAppDelegate.m; sourceTree = "<group>"; };
+		6DE55AF315994299002DBC02 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		6DE55AF515994299002DBC02 /* journalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = journalViewController.h; sourceTree = "<group>"; };
+		6DE55AF615994299002DBC02 /* journalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = journalViewController.m; sourceTree = "<group>"; };
+		6DE55AFE1599440B002DBC02 /* JournalDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JournalDatabase.xcdatamodel; sourceTree = "<group>"; };
+		6DE55B601599548A002DBC02 /* Entry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entry.h; sourceTree = "<group>"; };
+		6DE55B611599548A002DBC02 /* Entry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Entry.m; sourceTree = "<group>"; };
+		6DE55B631599548A002DBC02 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		6DE55B641599548A002DBC02 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
+		6DE55B661599548A002DBC02 /* Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Login.h; sourceTree = "<group>"; };
+		6DE55B671599548A002DBC02 /* Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Login.m; sourceTree = "<group>"; };
+		6DE55B691599548A002DBC02 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		6DE55B6A1599548A002DBC02 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		6DE55B6C1599548A002DBC02 /* CheckIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckIn.h; sourceTree = "<group>"; };
+		6DE55B6D1599548A002DBC02 /* CheckIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckIn.m; sourceTree = "<group>"; };
+		6DE55B6F1599548A002DBC02 /* Status.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Status.h; sourceTree = "<group>"; };
+		6DE55B701599548A002DBC02 /* Status.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Status.m; sourceTree = "<group>"; };
+		6DE55B721599548A002DBC02 /* Audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Audio.h; sourceTree = "<group>"; };
+		6DE55B731599548A002DBC02 /* Audio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Audio.m; sourceTree = "<group>"; };
+		6DE55B751599548A002DBC02 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		6DE55B761599548A002DBC02 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6DE55AD915994299002DBC02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE55AE115994299002DBC02 /* UIKit.framework in Frameworks */,
+				6DE55AE315994299002DBC02 /* Foundation.framework in Frameworks */,
+				6DE55AE515994299002DBC02 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6DE55AD115994299002DBC02 = {
+			isa = PBXGroup;
+			children = (
+				6DE55AE615994299002DBC02 /* JournalDatabase */,
+				6DE55ADF15994299002DBC02 /* Frameworks */,
+				6DE55ADD15994299002DBC02 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6DE55ADD15994299002DBC02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6DE55ADC15994299002DBC02 /* JournalDatabase.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6DE55ADF15994299002DBC02 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6DE55AE015994299002DBC02 /* UIKit.framework */,
+				6DE55AE215994299002DBC02 /* Foundation.framework */,
+				6DE55AE415994299002DBC02 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6DE55AE615994299002DBC02 /* JournalDatabase */ = {
+			isa = PBXGroup;
+			children = (
+				6DE55AEF15994299002DBC02 /* journalAppDelegate.h */,
+				6DE55AF015994299002DBC02 /* journalAppDelegate.m */,
+				6DE55AF215994299002DBC02 /* MainStoryboard.storyboard */,
+				6DE55AFD1599440B002DBC02 /* JournalDatabase.xcdatamodeld */,
+				6DE55B601599548A002DBC02 /* Entry.h */,
+				6DE55B611599548A002DBC02 /* Entry.m */,
+				6DE55B631599548A002DBC02 /* User.h */,
+				6DE55B641599548A002DBC02 /* User.m */,
+				6DE55B661599548A002DBC02 /* Login.h */,
+				6DE55B671599548A002DBC02 /* Login.m */,
+				6DE55B691599548A002DBC02 /* Photo.h */,
+				6DE55B6A1599548A002DBC02 /* Photo.m */,
+				6DE55B6C1599548A002DBC02 /* CheckIn.h */,
+				6DE55B6D1599548A002DBC02 /* CheckIn.m */,
+				6DE55B6F1599548A002DBC02 /* Status.h */,
+				6DE55B701599548A002DBC02 /* Status.m */,
+				6DE55B721599548A002DBC02 /* Audio.h */,
+				6DE55B731599548A002DBC02 /* Audio.m */,
+				6DE55B751599548A002DBC02 /* Note.h */,
+				6DE55B761599548A002DBC02 /* Note.m */,
+				6DE55AF515994299002DBC02 /* journalViewController.h */,
+				6DE55AF615994299002DBC02 /* journalViewController.m */,
+				6DE55AE715994299002DBC02 /* Supporting Files */,
+			);
+			path = JournalDatabase;
+			sourceTree = "<group>";
+		};
+		6DE55AE715994299002DBC02 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6DE55AE815994299002DBC02 /* JournalDatabase-Info.plist */,
+				6DE55AE915994299002DBC02 /* InfoPlist.strings */,
+				6DE55AEC15994299002DBC02 /* main.m */,
+				6DE55AEE15994299002DBC02 /* JournalDatabase-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6DE55ADB15994299002DBC02 /* JournalDatabase */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DE55AFA15994299002DBC02 /* Build configuration list for PBXNativeTarget "JournalDatabase" */;
+			buildPhases = (
+				6DE55AD815994299002DBC02 /* Sources */,
+				6DE55AD915994299002DBC02 /* Frameworks */,
+				6DE55ADA15994299002DBC02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JournalDatabase;
+			productName = JournalDatabase;
+			productReference = 6DE55ADC15994299002DBC02 /* JournalDatabase.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6DE55AD315994299002DBC02 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = "uc berkeley";
+			};
+			buildConfigurationList = 6DE55AD615994299002DBC02 /* Build configuration list for PBXProject "JournalDatabase" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 6DE55AD115994299002DBC02;
+			productRefGroup = 6DE55ADD15994299002DBC02 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6DE55ADB15994299002DBC02 /* JournalDatabase */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6DE55ADA15994299002DBC02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE55AEB15994299002DBC02 /* InfoPlist.strings in Resources */,
+				6DE55AF415994299002DBC02 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6DE55AD815994299002DBC02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DE55AED15994299002DBC02 /* main.m in Sources */,
+				6DE55AF115994299002DBC02 /* journalAppDelegate.m in Sources */,
+				6DE55AF715994299002DBC02 /* journalViewController.m in Sources */,
+				6DE55AFF1599440B002DBC02 /* JournalDatabase.xcdatamodeld in Sources */,
+				6DE55B621599548A002DBC02 /* Entry.m in Sources */,
+				6DE55B651599548A002DBC02 /* User.m in Sources */,
+				6DE55B681599548A002DBC02 /* Login.m in Sources */,
+				6DE55B6B1599548A002DBC02 /* Photo.m in Sources */,
+				6DE55B6E1599548A002DBC02 /* CheckIn.m in Sources */,
+				6DE55B711599548A002DBC02 /* Status.m in Sources */,
+				6DE55B741599548A002DBC02 /* Audio.m in Sources */,
+				6DE55B771599548A002DBC02 /* Note.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6DE55AE915994299002DBC02 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6DE55AEA15994299002DBC02 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		6DE55AF215994299002DBC02 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6DE55AF315994299002DBC02 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6DE55AF815994299002DBC02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		6DE55AF915994299002DBC02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6DE55AFB15994299002DBC02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JournalDatabase/JournalDatabase-Prefix.pch";
+				INFOPLIST_FILE = "JournalDatabase/JournalDatabase-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		6DE55AFC15994299002DBC02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JournalDatabase/JournalDatabase-Prefix.pch";
+				INFOPLIST_FILE = "JournalDatabase/JournalDatabase-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6DE55AD615994299002DBC02 /* Build configuration list for PBXProject "JournalDatabase" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DE55AF815994299002DBC02 /* Debug */,
+				6DE55AF915994299002DBC02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6DE55AFA15994299002DBC02 /* Build configuration list for PBXNativeTarget "JournalDatabase" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DE55AFB15994299002DBC02 /* Debug */,
+				6DE55AFC15994299002DBC02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6DE55AFD1599440B002DBC02 /* JournalDatabase.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6DE55AFE1599440B002DBC02 /* JournalDatabase.xcdatamodel */,
+			);
+			currentVersion = 6DE55AFE1599440B002DBC02 /* JournalDatabase.xcdatamodel */;
+			path = JournalDatabase.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 6DE55AD315994299002DBC02 /* Project object */;
+}

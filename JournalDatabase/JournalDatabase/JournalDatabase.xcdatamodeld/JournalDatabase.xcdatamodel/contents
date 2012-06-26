@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="872" systemVersion="10K549" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Audio" representedClassName="Audio" syncable="YES">
+        <attribute name="bitmap" attributeType="Binary" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="whoAdded" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="audio" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="CheckIn" representedClassName="CheckIn" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="location" attributeType="String" syncable="YES"/>
+        <attribute name="place" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="whoAdded" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="checkin" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Entry" representedClassName="Entry" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="type" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Login" representedClassName="Login" syncable="YES">
+        <attribute name="email" attributeType="String" syncable="YES"/>
+        <attribute name="password" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="login" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Note" representedClassName="Note" syncable="YES">
+        <attribute name="content" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="whoAdded" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="note" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Photo" representedClassName="Photo" syncable="YES">
+        <attribute name="bitmap" attributeType="Binary" syncable="YES"/>
+        <attribute name="caption" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="whoAdded" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="photo" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="Status" representedClassName="Status" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="location" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="source" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" attributeType="String" syncable="YES"/>
+        <relationship name="whoAdded" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="status" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="age" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="dob" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="firstName" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="audio" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Audio" inverseName="whoAdded" inverseEntity="Audio" syncable="YES"/>
+        <relationship name="checkin" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CheckIn" inverseName="whoAdded" inverseEntity="CheckIn" syncable="YES"/>
+        <relationship name="login" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Login" inverseName="user" inverseEntity="Login" syncable="YES"/>
+        <relationship name="note" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="whoAdded" inverseEntity="Note" syncable="YES"/>
+        <relationship name="photo" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photo" inverseName="whoAdded" inverseEntity="Photo" syncable="YES"/>
+        <relationship name="status" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Status" inverseName="whoAdded" inverseEntity="Status" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Login" positionX="-135" positionY="360" width="128" height="90"/>
+        <element name="User" positionX="-144" positionY="72" width="128" height="225"/>
+        <element name="Photo" positionX="79" positionY="204" width="128" height="120"/>
+        <element name="CheckIn" positionX="79" positionY="-51" width="128" height="105"/>
+        <element name="Note" positionX="88" positionY="75" width="128" height="105"/>
+        <element name="Status" positionX="70" positionY="366" width="128" height="120"/>
+        <element name="Audio" positionX="72" positionY="-207" width="128" height="135"/>
+        <element name="Entry" positionX="385" positionY="180" width="128" height="75"/>
+    </elements>
+</model>
