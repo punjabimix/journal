@@ -2,7 +2,7 @@
 //  User.m
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 6/25/12.
+//  Created by karthik jagadeesh on 6/26/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -17,17 +17,17 @@
 
 @implementation User
 
-@dynamic firstName;
-@dynamic lastName;
 @dynamic age;
-@dynamic gender;
 @dynamic dob;
+@dynamic firstName;
+@dynamic gender;
 @dynamic id;
-@dynamic login;
-@dynamic status;
-@dynamic checkin;
-@dynamic photo;
-@dynamic note;
+@dynamic lastName;
 @dynamic audio;
+@dynamic checkin;
+@dynamic login;
+@dynamic note;
+@dynamic photo;
+@dynamic status;
 
 @end

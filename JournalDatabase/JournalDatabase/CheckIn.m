@@ -2,7 +2,7 @@
 //  CheckIn.m
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 6/25/12.
+//  Created by karthik jagadeesh on 6/26/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -12,8 +12,8 @@
 
 @implementation CheckIn
 
-@dynamic location;
 @dynamic date;
+@dynamic location;
 @dynamic place;
 @dynamic whoAdded;
 

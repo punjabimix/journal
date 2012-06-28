@@ -21,7 +21,7 @@
 @property (nonatomic, retain) NSNumber * id;
 @property (nonatomic, retain) Login *login;
 @property (nonatomic, retain) NSSet *status;
-@property (nonatomic, retain) NSSet *checkin;
+@property (nonatomic, retain) NSSet *checkin;        	   
 @property (nonatomic, retain) NSSet *photo;
 @property (nonatomic, retain) NSSet *note;
 @property (nonatomic, retain) NSSet *audio;

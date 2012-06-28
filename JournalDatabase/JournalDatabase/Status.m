@@ -2,7 +2,7 @@
 //  Status.m
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 6/25/12.
+//  Created by karthik jagadeesh on 6/26/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -12,10 +12,10 @@
 
 @implementation Status
 
-@dynamic text;
-@dynamic location;
 @dynamic date;
+@dynamic location;
 @dynamic source;
+@dynamic text;
 @dynamic whoAdded;
 
 @end

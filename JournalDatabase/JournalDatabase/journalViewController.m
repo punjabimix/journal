@@ -7,54 +7,96 @@
 //
 
 #import "journalViewController.h"
+#import "Login+LoginCategory.h"
 
 @implementation journalViewController
+@synthesize loginEmail = _loginEmail;
+@synthesize loginPassword = _loginPassword;
+@synthesize loginDatabase = _loginDatabase;
+@synthesize user= _user;
 
-- (void)didReceiveMemoryWarning
+
+/*
+-(void)setupFetchedResultsController
 {
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
+    
 }
 
-#pragma mark - View lifecycle
-
-- (void)viewDidLoad
+- (void)useDocument
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[self.loginDatabase.fileURL path]]) {
+        [self.loginDatabase saveToURL:self.loginDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+            [self setupFetchedResultsController];
+            [self fetchFlickerDataIntoDocument:self.photoDatabase];
+        }];
+    } else if (self.loginDatabase.documentState == UIDocumentStateClosed) {
+        [self.loginDatabase openWithCompletionHandler:^(BOOL success) {
+            [self setupFetchedResultsController];
+        }];
+    } else if (self.loginDatabase.documentState == UIDocumentStateNormal) {
+        [self setupFetchedResultsController];
+    }
 }
 
-- (void)viewDidUnload
+- (void)setLoginDatabase:(UIManagedDocument *)loginDatabase
 {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    if(_loginDatabase != loginDatabase) {
+        _loginDatabase = loginDatabase;
+        [self useDocument];
+    }
 }
 
-- (void)viewWillAppear:(BOOL)animated
+*/
+
+- (IBAction)signInPressed:(id)sender
+
 {
-    [super viewWillAppear:animated];
+    NSString *mylogin = self.loginEmail.text;
+    NSString *pass = self.loginPassword.text;
+
+    
+    
+    
+    //[self.loginEmail text]
+    NSLog(@"login %@",self.loginEmail.text);
+    NSLog(@"Password: %@",self.loginPassword.text);
+    
+    
+    // [self performSegueWithIdentifier:@"Show Journal" sender:self];
+    /*
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: nil];
+    
+    NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys: mylogin, @"LOGIN_EMAIL", pass, @"LOGIN_PASSWORD", userInfo, @"USER_INFO", nil];
+    
+    
+    if (!self.loginDatabase) {
+        NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        url = [url URLByAppendingPathComponent:@"Default Login Database"];
+        self.loginDatabase = [[UIManagedDocument alloc] initWithFileURL:url];
+    }
+    */
+    
+   // [Login loginWithInfo:loginInfo inManagedObjectContext:context]; 
+
 }
 
-- (void)viewDidAppear:(BOOL)animated
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [super viewDidAppear:animated];
+    User *user = nil;//[[User alloc] init];
+    user.id = [[NSNumber alloc] initWithInt:1];
+    self.user = user;
+    NSLog(@"I'm in the Segue");
+    if([segue.identifier isEqualToString:@"Show Journal"]) {
+        [segue.destinationViewController setUser:self.user];
+    }
+    
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+/*
+- (IBAction)signInPressed
 {
-	[super viewWillDisappear:animated];
+    //NSLog(@"login %@",_loginEmail);
+    //NSLog(@"Password: %@",_loginPassword);
 }
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
+ */
 @end

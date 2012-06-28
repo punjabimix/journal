@@ -2,7 +2,7 @@
 //  Audio.m
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 6/25/12.
+//  Created by karthik jagadeesh on 6/26/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -15,8 +15,8 @@
 @dynamic bitmap;
 @dynamic date;
 @dynamic location;
-@dynamic title;
 @dynamic summary;
+@dynamic title;
 @dynamic whoAdded;
 
 @end
