@@ -18,10 +18,11 @@
 -(void)setupFetchedResultsController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
-    request.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@ and date = %@", self.user.id, self.date];
+    request.predicate = [NSPredicate predicateWithFormat:@"date = %@", self.date];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.photoDatabase.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
+
 
 -(void) setDate:(NSDate *)date
 {
@@ -45,9 +46,16 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+    Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+   // cell.textLabel.text = photo.caption;
+    
+    //NSLog([dateFormatter stringFromDate:photo.date]);
     
     // Configure the cell...
-    
+
     return cell;
 }
 

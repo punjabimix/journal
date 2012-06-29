@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 #import "User.h"
+#import "Photo.h"
 
 @interface EntriesTableViewController : CoreDataTableViewController
 

@@ -95,7 +95,7 @@
                             <outlet property="delegate" destination="ItB-qw-cx4" id="Gfj-8w-FEi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="VNP-Q6-9pN"/>
+                    <navigationItem key="navigationItem" title="Dates" id="VNP-Q6-9pN"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="718" y="-53"/>
@@ -127,7 +127,7 @@
                             <outlet property="delegate" destination="DTU-Zx-6vg" id="wIk-ZX-Lw6"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3hC-CQ-8cf"/>
+                    <navigationItem key="navigationItem" title="Photos" id="3hC-CQ-8cf"/>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="1126" y="-53"/>

@@ -10,6 +10,7 @@
 #import "CoreDataTableViewController.h"
 #import "User.h"
 #import "Photo.h"
+#import "Photo+PhotoCategory.h"
 
 @interface HomePageTableViewController : CoreDataTableViewController
 

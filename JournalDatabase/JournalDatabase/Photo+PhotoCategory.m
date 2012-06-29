@@ -15,8 +15,8 @@
     Photo *photo = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
-    //request.predicate = [NSPredicate predicateWithFormat:@"id = %@", [photoInfo objectForKey:PHOTO_ID]];
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+    request.predicate = [NSPredicate predicateWithFormat:@"date = %@", [photoInfo objectForKey:@"PHOTO_INFO_DATE"]];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
     NSError *error = nil;
@@ -26,10 +26,10 @@
         //error
     } else if ([matches count] == 0) {
         photo = [NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:context];
-     //   photo.bitmap = [photoInfo objectForKey:PHOTO_BITMAP];
-       // photo.caption = [photoInfo objectForKey:PHOTO_CAPTION];
-       // photo.date = [photoInfo objectForKey:PHOTO_DATE];
-        //photo.location = [photoInfo objectForKey:PHOTO_LOCATION];
+        photo.bitmap = [photoInfo objectForKey:@"PHOTO_INFO_BITMAP"];
+        photo.caption = [photoInfo objectForKey:@"PHOTO_INFO_CAPTION"];
+        photo.date = [photoInfo objectForKey:@"PHOTO_INFO_DATE"];
+        photo.location = [photoInfo objectForKey:@"PHOTO_INFO_LOCATION"];
         
         
         //********* must take user info */
