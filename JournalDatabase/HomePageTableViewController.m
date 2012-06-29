@@ -123,9 +123,9 @@
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSDate *date = photo.date;
     if ([segue.destinationViewController respondsToSelector:@selector(setDate:)]) {
-        [segue.destinationViewController setDate:date];
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setPhotoDatabase:self.photoDatabase];
+        [segue.destinationViewController setDate:date];
     }
 }
 

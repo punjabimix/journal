@@ -50,7 +50,7 @@
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-   // cell.textLabel.text = photo.caption;
+    cell.textLabel.text = photo.caption;
     
     //NSLog([dateFormatter stringFromDate:photo.date]);
     
