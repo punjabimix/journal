@@ -11,7 +11,7 @@
 
 @implementation HomePageTableViewController
 
-@synthesize photoDatabase = _photoDatabase;
+@synthesize lifeDatabase = _lifeDatabase;
 @synthesize user = _user;
 
 -(void)fetchFlickerDataIntoDocument:(UIManagedDocument *)document
@@ -35,46 +35,40 @@
 
 -(void)setupFetchedResultsController
 {
-  //  User *user = [[User alloc] init];
-  //  user.id = [[NSNumber alloc] initWithInt:1];
-    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
     request.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.photoDatabase.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-   // NSArray *objects=[self.fetchedResultsController fetchedObjects];
-   // NSLog([NSString stringWithFormat:@"Fetched results is %@",[objects description]]);
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.lifeDatabase.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
 
 - (void)useDocument
 {
-    if(![[NSFileManager defaultManager] fileExistsAtPath:[self.photoDatabase.fileURL path]]) {
-        [self.photoDatabase saveToURL:self.photoDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[self.lifeDatabase.fileURL path]]) {
+        [self.lifeDatabase saveToURL:self.lifeDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             [self setupFetchedResultsController];
-            [self fetchFlickerDataIntoDocument:self.photoDatabase];
+           // [self fetchFlickerDataIntoDocument:self.lifeDatabase];
             
         }];
-    } else if (self.photoDatabase.documentState == UIDocumentStateClosed) {
-        [self.photoDatabase openWithCompletionHandler:^(BOOL success) {
+    } else if (self.lifeDatabase.documentState == UIDocumentStateClosed) {
+        [self.lifeDatabase openWithCompletionHandler:^(BOOL success) {
             [self setupFetchedResultsController];
-           // [self fetchFlickerDataIntoDocument:self.photoDatabase];
         }];
-    } else if (self.photoDatabase.documentState == UIDocumentStateNormal) {
+    } else if (self.lifeDatabase.documentState == UIDocumentStateNormal) {
         [self setupFetchedResultsController];
-       // [self fetchFlickerDataIntoDocument:self.photoDatabase];
     }
 }
 
-- (void)setPhotoDatabase:(UIManagedDocument *)photoDatabase
+- (void)setLifeDatabase:(UIManagedDocument *)lifeDatabase
 {
-    if(_photoDatabase != photoDatabase) {
-        _photoDatabase = photoDatabase;
+    if(_lifeDatabase != lifeDatabase) {
+        _lifeDatabase = lifeDatabase;
         [self useDocument];
     }
 }
 
 -(void) setUser:(User *)user
 {
+    NSLog(@"i am in the set user");
     _user = user;
     
 }
@@ -83,10 +77,12 @@
 {
     [super viewWillAppear:animated];
     
-    if (!self.photoDatabase) {
+    if (!self.lifeDatabase) {
+        NSLog(@"Reseting PhotoDase again");
+        
         NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
         url = [url URLByAppendingPathComponent:@"Default Photo Database"];
-        self.photoDatabase = [[UIManagedDocument alloc] initWithFileURL:url];
+        self.lifeDatabase = [[UIManagedDocument alloc] initWithFileURL:url];
     }
     
 }
@@ -113,10 +109,7 @@
     
     return cell;
 }
-/*
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
-}*/
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
@@ -124,7 +117,7 @@
     NSDate *date = photo.date;
     if ([segue.destinationViewController respondsToSelector:@selector(setDate:)]) {
         [segue.destinationViewController setUser:self.user];
-        [segue.destinationViewController setPhotoDatabase:self.photoDatabase];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
         [segue.destinationViewController setDate:date];
     }
 }

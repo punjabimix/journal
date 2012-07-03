@@ -15,6 +15,6 @@
 
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, strong) User *user;
-@property (nonatomic, strong) UIManagedDocument *photoDatabase;
+@property (nonatomic, strong) UIManagedDocument *lifeDatabase;
 
 @end

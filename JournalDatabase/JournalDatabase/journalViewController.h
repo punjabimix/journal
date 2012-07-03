@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CoreDataTableViewController.h"
+#import <CoreData/CoreData.h>
 #import "User.h"
 
 @interface journalViewController : UIViewController 
@@ -16,7 +16,7 @@
 
 @property (strong, nonatomic) IBOutlet UITextField *loginPassword;
 
-@property (strong, nonatomic) UIManagedDocument *loginDatabase;
+@property (strong, nonatomic) UIManagedDocument *lifeDatabase;
 
 @property (strong, nonatomic) User *user;
 

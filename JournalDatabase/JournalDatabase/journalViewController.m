@@ -12,52 +12,12 @@
 @implementation journalViewController
 @synthesize loginEmail = _loginEmail;
 @synthesize loginPassword = _loginPassword;
-@synthesize loginDatabase = _loginDatabase;
+@synthesize lifeDatabase = _lifeDatabase;
 @synthesize user= _user;
-
-
-/*
--(void)setupFetchedResultsController
-{
-    
-}
-
-- (void)useDocument
-{
-    if(![[NSFileManager defaultManager] fileExistsAtPath:[self.loginDatabase.fileURL path]]) {
-        [self.loginDatabase saveToURL:self.loginDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-            [self setupFetchedResultsController];
-            [self fetchFlickerDataIntoDocument:self.photoDatabase];
-        }];
-    } else if (self.loginDatabase.documentState == UIDocumentStateClosed) {
-        [self.loginDatabase openWithCompletionHandler:^(BOOL success) {
-            [self setupFetchedResultsController];
-        }];
-    } else if (self.loginDatabase.documentState == UIDocumentStateNormal) {
-        [self setupFetchedResultsController];
-    }
-}
-
-- (void)setLoginDatabase:(UIManagedDocument *)loginDatabase
-{
-    if(_loginDatabase != loginDatabase) {
-        _loginDatabase = loginDatabase;
-        [self useDocument];
-    }
-}
-
-*/
 
 - (IBAction)signInPressed:(id)sender
 
 {
-    NSString *mylogin = self.loginEmail.text;
-    NSString *pass = self.loginPassword.text;
-
-    
-    
-    
-    //[self.loginEmail text]
     NSLog(@"login %@",self.loginEmail.text);
     NSLog(@"Password: %@",self.loginPassword.text);
     
@@ -82,21 +42,25 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    User *user = nil;//[[User alloc] init];
+    User *user = nil;
     user.id = [[NSNumber alloc] initWithInt:1];
     self.user = user;
     NSLog(@"I'm in the Segue");
+    
+    if (!self.lifeDatabase) {
+        NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        url = [url URLByAppendingPathComponent:@"Default Photo Database"];
+        self.lifeDatabase = [[UIManagedDocument alloc] initWithFileURL:url];
+    }
+    
     if([segue.identifier isEqualToString:@"Show Journal"]) {
         [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    }
+    else if([segue.identifier isEqualToString:@"Show SignUp"]) {
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+        //NoOpp
     }
     
 }
-
-/*
-- (IBAction)signInPressed
-{
-    //NSLog(@"login %@",_loginEmail);
-    //NSLog(@"Password: %@",_loginPassword);
-}
- */
 @end

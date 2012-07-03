@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D633C92159E9B16004FEE4F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D633C91159E9B16004FEE4F /* MobileCoreServices.framework */; };
+		6D633C95159EB3D6004FEE4F /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D633C94159EB3D6004FEE4F /* SignUpViewController.m */; };
+		6D633C98159EB743004FEE4F /* LifeString.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D633C97159EB743004FEE4F /* LifeString.m */; };
+		6D81A686159E99AA007C4424 /* LifeOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D81A685159E99AA007C4424 /* LifeOptionsViewController.m */; };
+		6D9C5D6415A17B1D00A46B6A /* CoreDataUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9C5D6315A17B1C00A46B6A /* CoreDataUIViewController.m */; };
 		6DABF538159C0A3800D34EA0 /* EntriesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DABF537159C0A3800D34EA0 /* EntriesTableViewController.m */; };
 		6DABF53F159C0C0C00D34EA0 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DABF53E159C0C0C00D34EA0 /* ImageViewController.m */; };
 		6DD648B9159980910078D9B2 /* User+UserCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD648B8159980910078D9B2 /* User+UserCategory.m */; };
@@ -35,6 +40,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D633C91159E9B16004FEE4F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		6D633C93159EB3D6004FEE4F /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		6D633C94159EB3D6004FEE4F /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		6D633C96159EB743004FEE4F /* LifeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeString.h; sourceTree = "<group>"; };
+		6D633C97159EB743004FEE4F /* LifeString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeString.m; sourceTree = "<group>"; };
+		6D81A684159E99AA007C4424 /* LifeOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LifeOptionsViewController.h; path = ../LifeOptionsViewController.h; sourceTree = "<group>"; };
+		6D81A685159E99AA007C4424 /* LifeOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LifeOptionsViewController.m; path = ../LifeOptionsViewController.m; sourceTree = "<group>"; };
+		6D9C5D6215A17B1C00A46B6A /* CoreDataUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataUIViewController.h; sourceTree = "<group>"; };
+		6D9C5D6315A17B1C00A46B6A /* CoreDataUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataUIViewController.m; sourceTree = "<group>"; };
 		6DABF536159C0A3800D34EA0 /* EntriesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntriesTableViewController.h; sourceTree = "<group>"; };
 		6DABF537159C0A3800D34EA0 /* EntriesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntriesTableViewController.m; sourceTree = "<group>"; };
 		6DABF53D159C0C0C00D34EA0 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
@@ -87,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D633C92159E9B16004FEE4F /* MobileCoreServices.framework in Frameworks */,
 				6DD648DD159ACED80078D9B2 /* CoreData.framework in Frameworks */,
 				6DE55AE115994299002DBC02 /* UIKit.framework in Frameworks */,
 				6DE55AE315994299002DBC02 /* Foundation.framework in Frameworks */,
@@ -100,6 +115,7 @@
 		6DE55AD115994299002DBC02 = {
 			isa = PBXGroup;
 			children = (
+				6D633C91159E9B16004FEE4F /* MobileCoreServices.framework */,
 				6DD648DC159ACED80078D9B2 /* CoreData.framework */,
 				6DE55AE615994299002DBC02 /* JournalDatabase */,
 				6DE55ADF15994299002DBC02 /* Frameworks */,
@@ -128,6 +144,8 @@
 		6DE55AE615994299002DBC02 /* JournalDatabase */ = {
 			isa = PBXGroup;
 			children = (
+				6D81A684159E99AA007C4424 /* LifeOptionsViewController.h */,
+				6D81A685159E99AA007C4424 /* LifeOptionsViewController.m */,
 				6DABF53D159C0C0C00D34EA0 /* ImageViewController.h */,
 				6DABF53E159C0C0C00D34EA0 /* ImageViewController.m */,
 				6DD648E8159C06BA0078D9B2 /* HomePageTableViewController.h */,
@@ -137,6 +155,10 @@
 				6DE55AEF15994299002DBC02 /* journalAppDelegate.h */,
 				6DE55AF015994299002DBC02 /* journalAppDelegate.m */,
 				6DE55AF215994299002DBC02 /* MainStoryboard.storyboard */,
+				6D633C93159EB3D6004FEE4F /* SignUpViewController.h */,
+				6D633C94159EB3D6004FEE4F /* SignUpViewController.m */,
+				6D633C96159EB743004FEE4F /* LifeString.h */,
+				6D633C97159EB743004FEE4F /* LifeString.m */,
 				6DABF536159C0A3800D34EA0 /* EntriesTableViewController.h */,
 				6DABF537159C0A3800D34EA0 /* EntriesTableViewController.m */,
 				6DE55AFD1599440B002DBC02 /* JournalDatabase.xcdatamodeld */,
@@ -165,6 +187,8 @@
 				6DE55AF515994299002DBC02 /* journalViewController.h */,
 				6DE55AF615994299002DBC02 /* journalViewController.m */,
 				6DE55AE715994299002DBC02 /* Supporting Files */,
+				6D9C5D6215A17B1C00A46B6A /* CoreDataUIViewController.h */,
+				6D9C5D6315A17B1C00A46B6A /* CoreDataUIViewController.m */,
 			);
 			path = JournalDatabase;
 			sourceTree = "<group>";
@@ -262,6 +286,10 @@
 				6DD648EA159C06BB0078D9B2 /* HomePageTableViewController.m in Sources */,
 				6DABF538159C0A3800D34EA0 /* EntriesTableViewController.m in Sources */,
 				6DABF53F159C0C0C00D34EA0 /* ImageViewController.m in Sources */,
+				6D81A686159E99AA007C4424 /* LifeOptionsViewController.m in Sources */,
+				6D633C95159EB3D6004FEE4F /* SignUpViewController.m in Sources */,
+				6D633C98159EB743004FEE4F /* LifeString.m in Sources */,
+				6D9C5D6415A17B1D00A46B6A /* CoreDataUIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

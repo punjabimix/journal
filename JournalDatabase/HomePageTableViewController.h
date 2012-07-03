@@ -14,7 +14,7 @@
 
 @interface HomePageTableViewController : CoreDataTableViewController
 
-@property (nonatomic, strong) UIManagedDocument *photoDatabase;
+@property (nonatomic, strong) UIManagedDocument *lifeDatabase;
 @property (nonatomic, strong) User *user;
 
 @end
