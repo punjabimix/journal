@@ -37,6 +37,8 @@
 		6DE55AF415994299002DBC02 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DE55AF215994299002DBC02 /* MainStoryboard.storyboard */; };
 		6DE55AF715994299002DBC02 /* journalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55AF615994299002DBC02 /* journalViewController.m */; };
 		6DE55AFF1599440B002DBC02 /* JournalDatabase.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55AFD1599440B002DBC02 /* JournalDatabase.xcdatamodeld */; };
+		D8FCF44215A2BD7500167303 /* CaptureNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FCF44115A2BD7500167303 /* CaptureNoteViewController.m */; };
+		D8FCF44515A2BEE300167303 /* Note+NoteCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = D8FCF44415A2BEE300167303 /* Note+NoteCategory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +96,10 @@
 		6DE55AF515994299002DBC02 /* journalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = journalViewController.h; sourceTree = "<group>"; };
 		6DE55AF615994299002DBC02 /* journalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = journalViewController.m; sourceTree = "<group>"; };
 		6DE55AFE1599440B002DBC02 /* JournalDatabase.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JournalDatabase.xcdatamodel; sourceTree = "<group>"; };
+		D8FCF44015A2BD7500167303 /* CaptureNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureNoteViewController.h; sourceTree = "<group>"; };
+		D8FCF44115A2BD7500167303 /* CaptureNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureNoteViewController.m; sourceTree = "<group>"; };
+		D8FCF44315A2BEE300167303 /* Note+NoteCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Note+NoteCategory.h"; sourceTree = "<group>"; };
+		D8FCF44415A2BEE300167303 /* Note+NoteCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Note+NoteCategory.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,8 @@
 		6DE55AE615994299002DBC02 /* JournalDatabase */ = {
 			isa = PBXGroup;
 			children = (
+				D8FCF44015A2BD7500167303 /* CaptureNoteViewController.h */,
+				D8FCF44115A2BD7500167303 /* CaptureNoteViewController.m */,
 				6D81A684159E99AA007C4424 /* LifeOptionsViewController.h */,
 				6D81A685159E99AA007C4424 /* LifeOptionsViewController.m */,
 				6DABF53D159C0C0C00D34EA0 /* ImageViewController.h */,
@@ -178,6 +186,8 @@
 				6DD648BF159A9ED30078D9B2 /* Status.m */,
 				6DD648BB159A9ED20078D9B2 /* Photo.h */,
 				6DD648D6159AAA240078D9B2 /* Photo+PhotoCategory.h */,
+				D8FCF44315A2BEE300167303 /* Note+NoteCategory.h */,
+				D8FCF44415A2BEE300167303 /* Note+NoteCategory.m */,
 				6DD648D7159AAA250078D9B2 /* Photo+PhotoCategory.m */,
 				6DD648BC159A9ED20078D9B2 /* Photo.m */,
 				6DD648B7159980910078D9B2 /* User+UserCategory.h */,
@@ -290,6 +300,8 @@
 				6D633C95159EB3D6004FEE4F /* SignUpViewController.m in Sources */,
 				6D633C98159EB743004FEE4F /* LifeString.m in Sources */,
 				6D9C5D6415A17B1D00A46B6A /* CoreDataUIViewController.m in Sources */,
+				D8FCF44215A2BD7500167303 /* CaptureNoteViewController.m in Sources */,
+				D8FCF44515A2BEE300167303 /* Note+NoteCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

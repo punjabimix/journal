@@ -79,8 +79,11 @@
     if([segue.identifier isEqualToString:@"Show Homepage"]) {
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    } else if([segue.identifier isEqualToString:@"Capture Note"]) {
+        [segue.destinationViewController
+         setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     }
-    
 }
 
 
