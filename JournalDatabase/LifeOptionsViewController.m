@@ -29,6 +29,11 @@
     
 }
 
+-(void) setLifeDatabase:(UIManagedDocument *)lifeDatabase
+{
+    _lifeDatabase = lifeDatabase;
+}
+
 - (IBAction)capturePhoto:(id)sender 
 {
     

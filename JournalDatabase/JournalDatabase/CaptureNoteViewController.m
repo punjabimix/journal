@@ -33,8 +33,11 @@
     
 }
 
-- (void)viewDidUnload {
-    [self setNote:nil];
-    [super viewDidUnload];
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"Back to Life Options"]) {
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+        [segue.destinationViewController setUser:self.user];
+    }
 }
 @end

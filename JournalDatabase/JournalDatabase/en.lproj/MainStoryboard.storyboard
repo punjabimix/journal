@@ -69,7 +69,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="160" y="-152"/>
+            <point key="canvasLocation" x="392" y="120"/>
         </scene>
         <scene sceneID="EH5-cP-g3Z">
             <objects>
@@ -160,7 +160,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="583" y="-579"/>
+            <point key="canvasLocation" x="951" y="-355"/>
         </scene>
         <scene sceneID="wET-ht-1gW">
             <objects>
@@ -221,7 +221,7 @@
                     <navigationItem key="navigationItem" title="Life Options" id="wZd-mv-kCx"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1369" y="-204"/>
+            <point key="canvasLocation" x="1489" y="240"/>
         </scene>
         <scene sceneID="VxZ-rw-7Hb">
             <objects>
@@ -258,7 +258,7 @@
                     <navigationItem key="navigationItem" id="Rbz-bs-lxi"/>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1857" y="-864"/>
+            <point key="canvasLocation" x="2181" y="-840"/>
         </scene>
         <scene sceneID="UNR-Zw-dyv">
             <objects>
@@ -290,7 +290,7 @@
                     <navigationItem key="navigationItem" title="Dates" id="VNP-Q6-9pN"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="946" y="533"/>
+            <point key="canvasLocation" x="2074" y="219"/>
         </scene>
         <scene sceneID="IrJ-OL-R3H">
             <objects>
@@ -322,7 +322,7 @@
                     <navigationItem key="navigationItem" title="Photos" id="3hC-CQ-8cf"/>
                 </tableViewController>
             </objects>
-            <point key="canvasLocation" x="1390" y="867"/>
+            <point key="canvasLocation" x="2550" y="219"/>
         </scene>
         <scene sceneID="Xe4-ex-Hgt">
             <objects>
@@ -345,7 +345,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="1999" y="612"/>
+            <point key="canvasLocation" x="3183" y="172"/>
         </scene>
         <scene sceneID="2tP-cr-UzO">
             <objects>
@@ -362,7 +362,7 @@
                     </connections>
                 </navigationController>
             </objects>
-            <point key="canvasLocation" x="-232" y="-86"/>
+            <point key="canvasLocation" x="-136" y="120"/>
         </scene>
     </scenes>
     <classes>
@@ -416,4 +416,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="Qzk-cD-fHW"/>
+    </inferredMetricsTieBreakers>
 </document>
