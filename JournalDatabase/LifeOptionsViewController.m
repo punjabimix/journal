@@ -60,6 +60,22 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
+-(void)saveImage:(UIImage *)image
+{
+    NSData *imageData = UIImagePNGRepresentation(image);
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+    
+    NSDate *dateFromString = [[NSDate alloc] init];
+    // voila!
+    dateFromString = [dateFormatter dateFromString:strDate];
+     NSDictionary *photoInfo = [NSDictionary dictionaryWithObjectsAndKeys: imageData, @"PHOTO_INFO_BITMAP", dateFromString, @"PHOTO_INFO_DATE", @"1stphoto", @"PHOTO_INFO_CAPTION", [NSDate date], @"PHOTO_INFO_DATEWITHTIME", self.user,@"PHOTO_INFO_WHOADDED", nil];
+ 
+    Photo *p = [Photo photoWithInfo:photoInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+}
+
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
@@ -67,6 +83,7 @@
     
     if(image) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        [self saveImage:image];
         NSLog(@"Picture Taken");
     }
     [self dismissImagePicker];
@@ -85,8 +102,7 @@
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     } else if([segue.identifier isEqualToString:@"Capture Note"]) {
-        [segue.destinationViewController
-         setUser:self.user];
+        [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     }
 }

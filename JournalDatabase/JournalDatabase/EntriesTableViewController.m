@@ -19,7 +19,7 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
     request.predicate = [NSPredicate predicateWithFormat:@"date = %@", self.date];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"datewithtime" ascending:NO]];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.lifeDatabase.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
 
@@ -46,6 +46,8 @@
     }
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
+    NSLog(@"Photo: %@", photo);
+    
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     cell.textLabel.text = photo.caption;
@@ -56,5 +58,19 @@
 
     return cell;
 }
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    //NSDate *date = photo.date;
+    if ([segue.destinationViewController respondsToSelector:@selector(setPhoto:)]) {
+        [segue.destinationViewController setPhoto:photo];
+        //[segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+        //[segue.destinationViewController setDate:date];
+    }
+    
+}
+
 
 @end

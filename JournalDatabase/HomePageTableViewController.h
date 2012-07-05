@@ -16,5 +16,7 @@
 
 @property (nonatomic, strong) UIManagedDocument *lifeDatabase;
 @property (nonatomic, strong) User *user;
+@property (nonatomic, strong) NSArray *dates;
+@property (nonatomic, strong) NSMutableDictionary *entries;
 
 @end

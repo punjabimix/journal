@@ -21,7 +21,6 @@
     NSLog(@"login %@",self.loginEmail.text);
     NSLog(@"Password: %@",self.loginPassword.text);
     
-    
     // [self performSegueWithIdentifier:@"Show Journal" sender:self];
     /*
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: nil];

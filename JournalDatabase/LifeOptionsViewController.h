@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "Photo+PhotoCategory.h"
 
 @interface LifeOptionsViewController : UIViewController
 

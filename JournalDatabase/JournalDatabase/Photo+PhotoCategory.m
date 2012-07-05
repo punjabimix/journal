@@ -15,7 +15,7 @@
     Photo *photo = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
-    request.predicate = [NSPredicate predicateWithFormat:@"date = %@", [photoInfo objectForKey:@"PHOTO_INFO_DATE"]];
+    request.predicate = [NSPredicate predicateWithFormat:@"date = %@", [photoInfo objectForKey:@"PHOTO_INFO_DATEWITHTIME"]];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
@@ -30,6 +30,8 @@
         photo.caption = [photoInfo objectForKey:@"PHOTO_INFO_CAPTION"];
         photo.date = [photoInfo objectForKey:@"PHOTO_INFO_DATE"];
         photo.location = [photoInfo objectForKey:@"PHOTO_INFO_LOCATION"];
+        photo.datewithtime = [photoInfo objectForKey:@"PHOTO_INFO_DATEWITHTIME"];
+        photo.whoAdded = [photoInfo objectForKey:@"PHOTO_INFO_WHOADDED"];
         
         
         //********* must take user info */

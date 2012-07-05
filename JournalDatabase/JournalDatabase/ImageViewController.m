@@ -15,6 +15,7 @@
 
 @synthesize imageView = _imageView;
 @synthesize imageURL = _imageURL;
+@synthesize photo = _photo;
 
 - (void)loadImage
 {
@@ -44,6 +45,12 @@
             self.imageView.image = nil; // but image has changed (so we can't leave imageView.image the same, so set to nil)
         }
     }
+}
+
+-(void) setPhoto:(Photo *)photo
+{
+    NSLog(@"i am in the set user");
+    _photo = photo;
 }
 
 - (void)viewWillAppear:(BOOL)animated
