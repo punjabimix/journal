@@ -34,6 +34,9 @@
     _lifeDatabase = lifeDatabase;
 }
 
+- (IBAction)captureLocation:(id)sender {
+}
+
 - (IBAction)capturePhoto:(id)sender 
 {
     
@@ -163,6 +166,9 @@
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     } else if([segue.identifier isEqualToString:@"Capture Note"]) {
+        [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    } else if ([segue.identifier isEqualToString:@"Capture Location"]) {
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     }

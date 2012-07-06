@@ -19,25 +19,33 @@
     _user = user;
 }
 
+- (IBAction)captureNote:(id)sender {
+    NSString * content = self.note.text;
+    NSDate * todaysDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    NSString * justDate = [dateFormatter stringFromDate:todaysDate];
+    NSDate * date = [dateFormatter dateFromString:justDate];
+    
+    
+    NSDictionary *noteInfo = [NSDictionary dictionaryWithObjectsAndKeys:content, @"NOTE_INFO_CONTENT", self.user, @"NOTE_INFO_USER", todaysDate, @"NOTE_INFO_DATEWITHTIME", date, @"NOTE_INFO_DATE", nil];
+    
+    [Note noteWithInfo:noteInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void) setLifeDatabase:(UIManagedDocument *)lifeDatabase
 {
     _lifeDatabase = lifeDatabase;
 }
 
-- (IBAction)captureNote:(id)sender {
-    NSString * content = self.note.text;
-    
-    NSDictionary *noteInfo = [NSDictionary dictionaryWithObjectsAndKeys:content, @"NOTE_INFO_CONTENT", self.user, @"NOTE_INFO_USER", nil];
-    
-    [Note noteWithInfo:noteInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
-    
-}
 
+/*
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"Back to Life Options"]) {
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
         [segue.destinationViewController setUser:self.user];
     }
-}
+}*/
 @end

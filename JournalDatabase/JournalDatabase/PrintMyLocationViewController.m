@@ -11,6 +11,8 @@
 @implementation PrintMyLocationViewController
 @synthesize myLocationManager = _myLocationManager;
 @synthesize myGeocoder = _myGeocoder;
+@synthesize user = _user;
+@synthesize lifeDatabase = _lifeDatabase;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -51,6 +53,15 @@
 }
 */
 
+- (void) setLifeDatabase:(UIManagedDocument *)lifeDatabase
+{
+    _lifeDatabase = lifeDatabase;
+}
+
+- (void) setUser:(User *) user
+{
+    _user = user;
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -68,6 +79,13 @@
     }
 }
 
+- (IBAction)saveLocation:(id)sender {
+    CLLocation *location = self.myLocationManager.location;
+    NSDictionary *checkInInfo = [NSDictionary dictionaryWithObjectsAndKeys: self.user, @"CHECKIN_INFO_WHOADDED", location.coordinate.latitude,  @"CHECKIN_INFO_LATITUDE", location.coordinate.latitude,  @"CHECKIN_INFO_LONGITUDE", nil];
+    [CheckIn checkInWithInfo:checkInInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];  
+    [self.navigationController popViewControllerAnimated:YES];
+
+}
 
 - (void)viewDidUnload
 {
