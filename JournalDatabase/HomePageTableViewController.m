@@ -16,8 +16,8 @@
 
 @synthesize lifeDatabase = _lifeDatabase;
 @synthesize user = _user;
-@synthesize dates = _dates;
 @synthesize entries = _entries;
+@synthesize dates = _dates;
 
 -(void)fetchFlickerDataIntoDocument:(UIManagedDocument *)document
 {
@@ -75,38 +75,80 @@
     }
     */
     
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Photo" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    // initializing the request for each table
+    NSFetchRequest *requestPhoto = [[NSFetchRequest alloc] init];
+    NSFetchRequest *requestVideo = [[NSFetchRequest alloc] init];
+    NSFetchRequest *requestNote = [[NSFetchRequest alloc] init];
+    NSFetchRequest *requestCheckin = [[NSFetchRequest alloc] init];
+
+    // creating the entity description for each table
+    NSEntityDescription *photoEntity = [NSEntityDescription entityForName:@"Photo" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    NSEntityDescription *videoEntity = [NSEntityDescription entityForName:@"Video" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    NSEntityDescription *noteEntity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    NSEntityDescription *checkInEntity = [NSEntityDescription entityForName:@"CheckIn" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     
-    request.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
+    // setting up the request predicate for each table
+    requestPhoto.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
+    requestVideo.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
+    requestNote.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
+    requestCheckin.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
     
-    request.entity = entity;
-    //request.propertiesToFetch = [NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"date"]];
+    // setting up the entity of request for each table
+    requestPhoto.entity = photoEntity; 
+    requestVideo.entity = videoEntity;
+    requestNote.entity = noteEntity;
+    requestCheckin.entity = checkInEntity;
     
-    request.returnsDistinctResults = YES;
-    request.resultType = NSDictionaryResultType;
+    // all requests should return distinct results
+    requestPhoto.returnsDistinctResults = YES;
+    requestCheckin.returnsDistinctResults = YES;
+    requestVideo.returnsDistinctResults = YES;
+    requestNote.returnsDistinctResults = YES;
     
-    //[request setPropertiesToFetch:[NSSet setWithObject:@"date"]];
+    // all request should return an nsdictionaryresulttype
+    requestPhoto.resultType = NSDictionaryResultType;
+    requestNote.resultType = NSDictionaryResultType;
+    requestCheckin.resultType = NSDictionaryResultType;
+    requestVideo.resultType = NSDictionaryResultType;
+    
+    // same sort descriptor will be used for all tables since they are all
+    // sorted using the same attribute (datewithtime)
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"datewithtime" ascending:YES];
-    [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    //[sortDescriptor release];
     
+    // set sort descriptor for each request
+    [requestPhoto setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    [requestVideo setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    [requestNote setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    [requestCheckin setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+
     
-    //request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"datewithtime" ascending:NO]];
+    // execute the request using managed object context
     NSError *error;
-    self.dates = [self.lifeDatabase.managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *photos = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestPhoto error:&error];
+    NSLog(@"%@", photos);
     
-    if ([self.dates isKindOfClass:[NSArray class]]) {
+    NSArray *checkins = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestCheckin error:&error];
+    
+    NSLog(@"%@", checkins);
+    
+    //NSArray *videos = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestVideo error:&error];
+    
+    //NSLog(@"%@", videos);
+    
+    NSArray *notes = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestNote error:&error];
+    
+    NSLog(@"%@", notes);
+    if ([photos isKindOfClass:[NSArray class]]) {
         NSLog(@"Dates is Array");
-    } else if ([self.dates isKindOfClass:[NSDictionary class]]) {
+    } else if ([photos isKindOfClass:[NSDictionary class]]) {
         NSLog(@"Dates is dic");
     }
     
     self.entries = [[NSMutableDictionary alloc] init];
-    NSLog(@"count from query %i", [self.dates count]);
+    NSLog(@"count from query %i", [photos count]);
     
-    for (int i =0 ; i< [self.dates count]; i++) {
-        NSDictionary *ith = [self.dates objectAtIndex:i]; 
+    for (int i =0 ; i< [photos count]; i++) {
+        NSDictionary *ith = [photos objectAtIndex:i]; 
        // NSLog(@"ith: %@", ith);
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
@@ -204,7 +246,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.dates count];
+    return [self.entries.allKeys count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
