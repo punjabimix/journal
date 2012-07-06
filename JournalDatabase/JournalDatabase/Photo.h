@@ -2,7 +2,7 @@
 //  Photo.h
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 7/4/12.
+//  Created by karthik jagadeesh on 7/5/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -16,8 +16,8 @@
 @property (nonatomic, retain) NSData * bitmap;
 @property (nonatomic, retain) NSString * caption;
 @property (nonatomic, retain) NSDate * date;
-@property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) NSDate * datewithtime;
+@property (nonatomic, retain) NSString * location;
 @property (nonatomic, retain) User *whoAdded;
 
 @end

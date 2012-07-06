@@ -55,6 +55,30 @@
     }
 }
 
+- (IBAction)recordVideo:(id)sender 
+{
+    NSLog(@"Inside recordVideo");
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        
+        if([mediaTypes containsObject:(NSString *)kUTTypeMovie]){
+            NSLog(@"Camera is availble");
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
+            picker.allowsEditing = YES;
+            [self presentModalViewController:picker animated:YES];
+        } else {
+            NSLog(@"Camera is not available");
+        }
+        
+    }
+    
+}
+
+
 -(void)dismissImagePicker
 {
     [self dismissModalViewControllerAnimated:YES];
@@ -78,15 +102,52 @@
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    
+    NSLog(@"Picker returned successfully.");
+    NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
+    
+    if ([mediaType isEqualToString:(__bridge NSString *)kUTTypeMovie]){
+        NSURL *urlOfVideo = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSLog(@"Video URL = %@", urlOfVideo);
+        
+        NSError *dataReadingError = nil;
+        NSData *videoData = [NSData dataWithContentsOfURL:urlOfVideo options:NSDataReadingMapped error:&dataReadingError];
+        if (videoData != nil){ 
+            /* We were able to read the data */ 
+            NSLog(@"Successfully loaded the data.");
+        } else { 
+            /* We failed to read the data. Use the dataReadingError
+                  variable to determine what the error is */ 
+            NSLog(@"Failed to load the data with error = %@", dataReadingError);
+        }
+    } else if ([mediaType isEqualToString:(__bridge NSString *)kUTTypeImage]){
+        NSDictionary *metadata = [info objectForKey:UIImagePickerControllerMediaMetadata];
+        //NSLog(@"Image Metadata = %@", metadata);
+        
+        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+        if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        
+        if(image) {
+            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            [self saveImage:image];
+            NSLog(@"Picture Taken");
+        }
+        
+    }
+    [self dismissImagePicker];
+    /*
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
     
     if(image) {
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         [self saveImage:image];
         NSLog(@"Picture Taken");
     }
-    [self dismissImagePicker];
+    [self dismissImagePicker];*/
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

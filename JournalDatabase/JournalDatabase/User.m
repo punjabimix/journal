@@ -2,14 +2,14 @@
 //  User.m
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 7/4/12.
+//  Created by karthik jagadeesh on 7/5/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
 #import "User.h"
-#import "Audio.h"
 #import "CheckIn.h"
 #import "Login.h"
+#import "Media.h"
 #import "Note.h"
 #import "Photo.h"
 #import "Status.h"
@@ -23,9 +23,9 @@
 @dynamic gender;
 @dynamic id;
 @dynamic lastName;
-@dynamic audio;
 @dynamic checkin;
 @dynamic login;
+@dynamic media;
 @dynamic note;
 @dynamic photo;
 @dynamic status;

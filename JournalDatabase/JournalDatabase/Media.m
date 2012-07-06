@@ -1,23 +1,23 @@
 //
-//  Audio.m
+//  Media.m
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 7/4/12.
+//  Created by karthik jagadeesh on 7/5/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
-#import "Audio.h"
+#import "Media.h"
 #import "User.h"
 
 
-@implementation Audio
+@implementation Media
 
-@dynamic bitmap;
 @dynamic date;
+@dynamic datewithtime;
 @dynamic location;
+@dynamic source;
 @dynamic summary;
 @dynamic title;
-@dynamic datewithtime;
 @dynamic whoAdded;
 
 @end

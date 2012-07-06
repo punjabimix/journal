@@ -2,7 +2,7 @@
 //  Entry.h
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 7/4/12.
+//  Created by karthik jagadeesh on 7/5/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 @interface Entry : NSManagedObject
 
 @property (nonatomic, retain) NSDate * date;
-@property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) NSDate * datewithtime;
+@property (nonatomic, retain) NSString * type;
 
 @end
