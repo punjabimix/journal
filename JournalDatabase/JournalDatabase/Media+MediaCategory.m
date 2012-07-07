@@ -22,12 +22,13 @@
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
-    if (!matches || ([matches count] > 1)) {
+    if (!matches) {
         //error
         media = nil;
     } else if ([matches count] == 0) {
         media = [NSEntityDescription insertNewObjectForEntityForName:@"Media" inManagedObjectContext:context];
         
+        media.source = [mediaInfo objectForKey:@"MEDIA_INFO_SOURCE"];
         media.summary = [mediaInfo objectForKey:@"MEDIA_INFO_SUMMARY"];
         media.date = [mediaInfo objectForKey:@"MEDIA_INFO_DATE"];
         media.location = [mediaInfo objectForKey:@"MEDIA_INFO_LOCATION"];

@@ -14,4 +14,6 @@
 + (Login *)loginWithInfo:(NSDictionary *)loginInfo inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (BOOL) doesEmailExit:(NSString *)email inManangedObjectContext:(NSManagedObjectContext *)context;
+
++ (BOOL) checkUser:(NSDictionary *)loginInfo inManangedObjectContext:(NSManagedObjectContext *)context;
 @end

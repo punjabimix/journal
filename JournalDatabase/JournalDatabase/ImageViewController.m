@@ -49,7 +49,7 @@
 
 -(void) setPhoto:(Photo *)photo
 {
-    NSLog(@"i am in the set user");
+   // NSLog(@"i am in the set user");
     _photo = photo;
 }
 

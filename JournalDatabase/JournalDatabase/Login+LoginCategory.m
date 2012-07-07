@@ -69,4 +69,26 @@
     return ret;
 }
 
++ (BOOL) checkUser:(NSDictionary *)loginInfo inManangedObjectContext:(NSManagedObjectContext *)context
+{
+    BOOL ret = NO;
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Login"];
+    request.predicate = [NSPredicate predicateWithFormat:@"email == %@ AND password == %@", [loginInfo objectForKey:@"LOGIN_INFO_EMAIL"], [loginInfo objectForKey:@"LOGIN_INFO_PASSWORD"]];
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES];
+    request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    
+    NSError *error = nil;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    if (!matches) {
+        //error
+    } else if([matches count] >= 1) {
+        return YES;
+    } else if ([matches count] == 0) {
+        return NO;
+    }
+    return ret;
+}
+
 @end

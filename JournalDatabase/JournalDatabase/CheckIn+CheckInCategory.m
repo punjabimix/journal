@@ -23,6 +23,8 @@
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
+    NSLog(@"Matches in CheckINCategory: %@", matches);
+    
     if (!matches) {
         //error
     } else if ([matches count] == 0) {

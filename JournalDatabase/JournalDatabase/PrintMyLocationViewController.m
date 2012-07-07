@@ -33,8 +33,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 { /* We received the new location */
-    NSLog(@"Latitude = %f", newLocation.coordinate.latitude);
-    NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
+   // NSLog(@"Latitude = %f", newLocation.coordinate.latitude);
+   // NSLog(@"Longitude = %f", newLocation.coordinate.longitude);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -70,6 +70,14 @@
     }
 }
 
+
+-(void)saveLocationHelper:(NSDictionary *)checkInInfo
+{
+    CheckIn *checkin = [CheckIn checkInWithInfo:checkInInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    // NSLog(@"Here is the check-in: %@", checkin);
+    [self.navigationController popViewControllerAnimated:YES];   
+}
+
 - (IBAction)saveLocation:(id)sender {
     CLLocation *location = self.myLocationManager.location;
     self.myGeocoder = [[CLGeocoder alloc] init];
@@ -79,7 +87,7 @@
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     NSString * justDate = [dateFormatter stringFromDate:todaysDate];
     NSDate * date = [dateFormatter dateFromString:justDate];
-    NSLog(@"%@", self.user);
+   // NSLog(@"%@", self.user);
     NSMutableDictionary *checkInInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: self.user, @"CHECKIN_INFO_WHOADDED", date, @"CHECKIN_INFO_DATE", todaysDate, @"CHECKIN_INFO_DATEWITHTIME", nil];
     [self.myGeocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error){
         if (error == nil && [placemarks count] > 0) {
@@ -90,6 +98,7 @@
             NSLog(@"Postal Code: %@", placemark.postalCode);
             [checkInInfo setValue:placemark.postalCode forKey:@"CHECKIN_INFO_LOCATION"];
             NSLog(@"Locality: %@", placemark.locality);
+            [self saveLocationHelper:checkInInfo];
         } else if (error==nil && [placemarks count] == 0) {
             NSLog(@"No results found");
         } else if (error != nil) {
@@ -98,9 +107,7 @@
     }];
     // This is currently adding nil
     // we will need to create a view for user to pick location and add to db based on that
-    CheckIn *checkin = [CheckIn checkInWithInfo:checkInInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
-    NSLog(@"Here is the check-in: %@", checkin);
-    [self.navigationController popViewControllerAnimated:YES];
+    
 
 }
 

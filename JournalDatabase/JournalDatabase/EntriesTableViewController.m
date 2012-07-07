@@ -46,7 +46,7 @@
     }
     Photo *photo = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSLog(@"Photo: %@", photo);
+   // NSLog(@"Photo: %@", photo);
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];

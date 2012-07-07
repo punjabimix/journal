@@ -28,6 +28,18 @@
 {
     NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys: self.loginEmail.text, @"LOGIN_INFO_EMAIL", self.loginPassword.text, @"LOGIN_INFO_PASSWORD", nil];
     
+    BOOL userExit = [Login checkUser:loginInfo inManangedObjectContext:self.lifeDatabase.managedObjectContext];
+    
+    if(userExit == NO) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @""
+                              message: @"Wrong email or password!"
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        
+    } else {
     Login *login = [Login loginWithInfo:loginInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: @"Bob", @"USER_INFO_FIRSTNAME", @"Jones", @"USER_INFO_LASTNAME", [[NSNumber alloc] initWithInt:10], @"USER_INFO_ID", login, @"USER_INFO_LOGIN", nil];
     
@@ -35,11 +47,12 @@
     
     login.user = self.user;
     
-    NSLog(@"here is the login: %@", login);
+   // NSLog(@"here is the login: %@", login);
     
-    NSLog(@"here is the user: %@", self.user);
+   // NSLog(@"here is the user: %@", self.user);
     
     [self performSegueWithIdentifier:@"Show Journal" sender:self];
+    }
 
 }
 
@@ -69,8 +82,8 @@
 - (IBAction)signInPressed:(id)sender
 
 {
-    NSLog(@"login %@",self.loginEmail.text);
-    NSLog(@"Password: %@",self.loginPassword.text);
+   // NSLog(@"login %@",self.loginEmail.text);
+   // NSLog(@"Password: %@",self.loginPassword.text);
 
     
     if (!self.lifeDatabase) {
@@ -83,7 +96,7 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    NSLog(@"Im in the segue from start page");
+   // NSLog(@"Im in the segue from start page");
     if([segue.identifier isEqualToString:@"Show Journal"]) {
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];

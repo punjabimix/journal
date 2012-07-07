@@ -57,6 +57,23 @@
     }
 }
 
+
+-(void)setupFetchedResultsController2
+{
+    
+     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Media"];
+     request.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
+    request.resultType = NSManagedObjectResultType;
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"datewithtime" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+
+    
+    NSError *error;
+    NSArray *mediaObjects = [self.lifeDatabase.managedObjectContext executeFetchRequest:request error:&error];
+     NSLog(@"NUMOF Mediaobjects: %i",[mediaObjects count]);
+     
+}
+
 -(void)setupFetchedResultsController
 {
     // initializing the request for each table
@@ -208,7 +225,7 @@
 
 - (void)setLifeDatabase:(UIManagedDocument *)lifeDatabase
 {
-    NSLog(@"i am in the set lifedatabase");
+   // NSLog(@"i am in the set lifedatabase of Homepage");
 
     if(_lifeDatabase != lifeDatabase) {
         NSLog(@"i am in the set life database if");
@@ -219,20 +236,14 @@
 
 -(void) setUser:(User *)user
 {
-    NSLog(@"i am in the set user");
+   // NSLog(@"i am in the set user");
     _user = user;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    //[self useDocument];
-   // [self fetchFlickerDataIntoDocument:self.lifeDatabase];
     
-    if ([self.user.id isKindOfClass:[NSNumber class]])
-        NSLog(@"userid is NSNUmber");
-    
-    NSLog(@"Priinting userId in HomePage %@", self.user.id);
     
     if (!self.lifeDatabase) {
         NSLog(@"Reseting PhotoDase again");
