@@ -15,6 +15,14 @@
 @synthesize lifeDatabase = _lifeDatabase;
 @synthesize user= _user;
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return [textField resignFirstResponder];
+}
+
+- (void) hideKeyboard {
+    [self.loginPassword resignFirstResponder];
+    [self.loginEmail resignFirstResponder];
+}
 
 -(void)setupFetchedResultsController 
 {
@@ -86,4 +94,19 @@
     }
     
 }
+
+
+
+- (void)viewDidLoad
+{
+    [self.loginEmail setDelegate:self];
+    [self textFieldShouldReturn:self.loginEmail];
+    [self.loginPassword setDelegate:self];
+    [self textFieldShouldReturn:self.loginPassword];
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
+}
+
 @end

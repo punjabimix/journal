@@ -2,7 +2,7 @@
 //  Media.h
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 7/5/12.
+//  Created by karthik jagadeesh on 7/6/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * source;
 @property (nonatomic, retain) NSString * summary;
 @property (nonatomic, retain) NSString * title;
+@property (nonatomic, retain) NSString * type;
 @property (nonatomic, retain) User *whoAdded;
 
 @end

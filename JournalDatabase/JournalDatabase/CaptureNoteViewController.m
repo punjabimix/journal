@@ -27,15 +27,15 @@
     NSString * justDate = [dateFormatter stringFromDate:todaysDate];
     NSDate * date = [dateFormatter dateFromString:justDate];
     
-    NSLog(@"The user %@", self.user);
-    NSLog(@"The short version of date: %@", justDate);
+  //  NSLog(@"The user %@", self.user);
+  //  NSLog(@"The short version of date: %@", justDate);
     NSDictionary *noteInfo = [NSDictionary dictionaryWithObjectsAndKeys:content, @"NOTE_INFO_CONTENT", todaysDate, @"NOTE_INFO_DATEWITHTIME", date, @"NOTE_INFO_DATE", self.user, @"NOTE_INFO_USER", nil];
     
-    NSLog(@"This note dict: %@", noteInfo);
+   // NSLog(@"This note dict: %@", noteInfo);
     
     Note *note = [Note noteWithInfo:noteInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     
-    NSLog(@"Here is note: %@", note);
+  //  NSLog(@"Here is note: %@", note);
     [self.navigationController popViewControllerAnimated:YES];
 }
 

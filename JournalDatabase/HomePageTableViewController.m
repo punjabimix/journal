@@ -199,7 +199,7 @@
     NSArray *sorters = [[NSArray alloc] initWithObjects:sorter, nil];
     self.dates = [self.dates sortedArrayUsingDescriptors:sorters];
     
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
     
     //NSLog(@"Dates: %@",self.dates);
     
@@ -260,6 +260,11 @@
     //[self useDocument];
    // [self fetchFlickerDataIntoDocument:self.lifeDatabase];
     
+    if ([self.user.id isKindOfClass:[NSNumber class]])
+        NSLog(@"userid is NSNUmber");
+    
+    NSLog(@"Priinting userId in HomePage %@", self.user.id);
+    
     if (!self.lifeDatabase) {
         NSLog(@"Reseting PhotoDase again");
         
@@ -289,6 +294,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    static NSString *CellIdentifier = @"Day Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
+    
+    return cell;
+    
  /*   
     static NSString *CellIdentifier = @"Day Cell";
     
@@ -316,6 +331,10 @@
     
     return cell;
 */
+ 
+    
+/*******************************************************    
+    
     
     
     //[self.tableView reloadData];
@@ -342,18 +361,7 @@
     //if ([dat isKindOfClass:[NSDictionary class]])
      //   date = [(NSDictionary *)d objectForKey:@"date"];
     NSLog(@"date in cell: %@",date);
-    /*
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-    NSString *tmp = [dateFormatter stringFromDate:date];*/
-   // NSLog(@"NSdate %@",tmp);
-    //cell.textLabel.text = [dateFormatter stringFromDate:date];
     
-    //NSLog([dateFormatter stringFromDate:photo.date]);
-    /*
-    // Configure the cell...
-    NSArray *itemsForDate = [[NSArray alloc] initWithObjects:@"http://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Map_of_USA_with_state_names_2.svg/650px-Map_of_USA_with_state_names_2.svg.png", @"http://media.lonelyplanet.com/lpi/23521/23521-1/469x264.jpg",@"http://upload.wikimedia.org/wikipedia/commons/thumb/7/70/United_States_(orthographic_projection).svg/220px-United_States_(orthographic_projection).svg.png", nil];
-    */
     NSArray *itemsForDate = [self.entries objectForKey:date];
 
     cell.accessoryType = UITableViewCellAccessoryNone;
@@ -389,9 +397,12 @@
     
     
     return cell;
-    
+    */
+   
     
 }
+
+
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {

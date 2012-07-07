@@ -17,6 +17,70 @@
 @synthesize lifeDatabase = _lifeDatabase;
 
 
+-(BOOL)saveMedia:(NSData *)mediaData withType:(NSString *)type
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSDate *dateWithTime = [NSDate date];
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM-dd-yyyy HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:dateWithTime];
+    NSString *savedMediaPath = nil;
+    NSLog(@"dateString %@",dateString); 
+    NSDate *date = [[NSDate alloc] init];
+    NSDictionary *mediaInfo = nil;
+    if([type compare:@"photo"]) {
+        //dateString = [dateString stringByAppendingPathComponent:@""]
+        savedMediaPath = [documentsDirectory stringByAppendingPathExtension:@".png"];
+        [mediaData writeToFile:savedMediaPath atomically:NO];
+        
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+        // voila!
+        date = [dateFormatter dateFromString:strDate];
+        
+        mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"photo", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
+
+    } else if([type compare:@"video"]) {
+        //dateString = [dateString stringByAppendingPathComponent:@""]
+        savedMediaPath = [documentsDirectory stringByAppendingPathExtension:@".mp4"];
+        [mediaData writeToFile:savedMediaPath atomically:NO];
+        
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+        
+        // voila!
+        date = [dateFormatter dateFromString:strDate];
+        
+        mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"video", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
+       
+    } else if([type compare:@"audio"]) {
+        //dateString = [dateString stringByAppendingPathComponent:@""]
+        savedMediaPath = [documentsDirectory stringByAppendingPathExtension:@".mp3"];
+        [mediaData writeToFile:savedMediaPath atomically:NO];
+        
+        
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+        
+        // voila!
+        date = [dateFormatter dateFromString:strDate];
+        
+        mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"audio", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
+        
+    }
+    
+    Media *media = [Media mediaWithInfo:mediaInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    
+    if(media) {
+        return YES;
+    }
+    
+    return NO;
+    //UIImage *image = imageView.image; // imageView is my image from cameraå
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -30,6 +94,7 @@
 
 -(void) setLifeDatabase:(UIManagedDocument *)lifeDatabase
 {
+    
     _lifeDatabase = lifeDatabase;
 }
 
@@ -96,7 +161,17 @@
     dateFromString = [dateFormatter dateFromString:strDate];
      NSDictionary *photoInfo = [NSDictionary dictionaryWithObjectsAndKeys: imageData, @"PHOTO_INFO_BITMAP", dateFromString, @"PHOTO_INFO_DATE", @"1stphoto", @"PHOTO_INFO_CAPTION", [NSDate date], @"PHOTO_INFO_DATEWITHTIME", self.user,@"PHOTO_INFO_WHOADDED", nil];
  
-    Photo *p = [Photo photoWithInfo:photoInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+ //   Photo *p = [Photo photoWithInfo:photoInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+}
+
+
+- (void)thisImage:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void*)ctxInfo {
+    if (error) {
+        // Do anything needed to handle the error or display it to the user
+    } else {
+        // .... do anything you want here to handle
+        // .... when the image has been saved in the photo album
+    }
 }
 
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -112,8 +187,16 @@
         NSError *dataReadingError = nil;
         NSData *videoData = [NSData dataWithContentsOfURL:urlOfVideo options:NSDataReadingMapped error:&dataReadingError];
         if (videoData != nil){ 
+            NSLog(@"Succesfully loaded the data.");
+
+            BOOL savingVideo = [self saveMedia:videoData withType:@"video"];
             /* We were able to read the data */ 
-            NSLog(@"Successfully loaded the data.");
+            if(savingVideo) {
+                NSLog(@"Succesfully saved the video.");
+            } else {
+                NSLog(@"Failed to save video.");
+            }
+                
         } else { 
             /* We failed to read the data. Use the dataReadingError
                   variable to determine what the error is */ 
@@ -128,9 +211,23 @@
         
         
         if(image) {
-            UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-            [self saveImage:image];
             NSLog(@"Picture Taken");
+
+            NSData *imageData = UIImagePNGRepresentation(image);
+            BOOL savingPhoto = [self saveMedia:imageData withType:@"photo"];
+            if(savingPhoto) {
+                NSLog(@"Succesfully saved the photo.");
+            } else {
+                NSLog(@"Failed to save photo.");
+            }
+            
+          //  [imageData writeToFile:[self getPathToStore:@"photo"] atomically:NO];
+            
+            //** Saving to Photo ALbum
+            //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            //UIImageWriteToSavedPhotosAlbum(image,self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:),NULL);
+            
+            //[self saveImage:image];
         }
         
     }

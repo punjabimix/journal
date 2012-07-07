@@ -2,7 +2,7 @@
 //  Media.m
 //  JournalDatabase
 //
-//  Created by karthik jagadeesh on 7/5/12.
+//  Created by karthik jagadeesh on 7/6/12.
 //  Copyright (c) 2012 uc berkeley. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @dynamic source;
 @dynamic summary;
 @dynamic title;
+@dynamic type;
 @dynamic whoAdded;
 
 @end

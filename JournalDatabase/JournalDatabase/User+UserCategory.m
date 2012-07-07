@@ -23,7 +23,7 @@
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
-    if (!matches || ([matches count] > 1)) {
+    if (!matches) {
         //error
     } else if ([matches count] == 0) {
         //update user info here

@@ -35,6 +35,22 @@
 }
 */
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    return [textField resignFirstResponder];
+}
+
+- (void) hideKeyboard {
+    [self.firstName resignFirstResponder];
+    [self.lastName resignFirstResponder];
+    [self.email resignFirstResponder];
+    [self.confirmEmail resignFirstResponder];
+    [self.password resignFirstResponder];
+    [self.confirmPassword resignFirstResponder];
+    [self.dob resignFirstResponder];
+    [self.gender resignFirstResponder];
+}
+
+
 -(void)setupLoginFetchedResultsController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Login"];
@@ -123,6 +139,32 @@
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     }
     
+}
+
+
+- (void)viewDidLoad
+{
+    [self.firstName setDelegate:self];
+    [self textFieldShouldReturn:self.firstName];
+    [self.lastName setDelegate:self];
+    [self textFieldShouldReturn:self.lastName];
+    [self.email setDelegate:self];
+    [self textFieldShouldReturn:self.email];
+    [self.confirmEmail setDelegate:self];
+    [self textFieldShouldReturn:self.confirmEmail];
+    [self.password setDelegate:self];
+    [self textFieldShouldReturn:self.password];
+    [self.confirmPassword setDelegate:self];
+    [self textFieldShouldReturn:self.confirmPassword];
+    [self.dob setDelegate:self];
+    [self textFieldShouldReturn:self.dob];
+    [self.gender setDelegate:self];
+    [self textFieldShouldReturn:self.gender];
+    
+    
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
+    [self.view addGestureRecognizer:gestureRecognizer];
+    gestureRecognizer.cancelsTouchesInView = NO;
 }
 
 @end

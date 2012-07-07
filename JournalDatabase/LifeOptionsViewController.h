@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "User.h"
 #import <MobileCoreServices/MobileCoreServices.h>
-#import "Photo+PhotoCategory.h"
+#import "Media+MediaCategory.h"
+#import <AVFoundation/AVFoundation.h>
+#import <CoreAudio/CoreAudioTypes.h>
 
-@interface LifeOptionsViewController : UIViewController
+@interface LifeOptionsViewController : UIViewController <AVAudioPlayerDelegate, AVAudioRecorderDelegate>
 
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) UIManagedDocument *lifeDatabase;
+@property (nonatomic, strong) AVAudioRecorder *audioRecorder; 
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 
 @end

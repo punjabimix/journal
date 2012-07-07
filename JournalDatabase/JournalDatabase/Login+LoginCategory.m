@@ -16,14 +16,16 @@
     Login *login = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Login"];
-    request.predicate = [NSPredicate predicateWithFormat:@"email = %@", [loginInfo objectForKey:@"LOGIN_INFO_EMAIL"]];
+    request.predicate = [NSPredicate predicateWithFormat:@"email == %@", [loginInfo objectForKey:@"LOGIN_INFO_EMAIL"]];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
-    if (!matches || ([matches count] > 1)) {
+    NSLog(@"Matches found in Login+Category; %@ with count:%i",matches, [matches count]);
+    
+    if (!matches ) {
         //error
     } else if ([matches count] == 0) {
         login = [NSEntityDescription insertNewObjectForEntityForName:@"Login" inManagedObjectContext:context];
