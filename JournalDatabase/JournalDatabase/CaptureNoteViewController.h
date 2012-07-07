@@ -12,7 +12,7 @@
 #import "User.h"
 
 @interface CaptureNoteViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UITextField *note;
+@property (strong, nonatomic) IBOutlet UITextField *note;
 @property (nonatomic, strong) User *user;
 @property (nonatomic, strong) UIManagedDocument *lifeDatabase;
 

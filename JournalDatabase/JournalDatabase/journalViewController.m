@@ -16,43 +16,9 @@
 @synthesize user= _user;
 
 
-- (void)useDocument
+-(void)setupFetchedResultsController 
 {
-    if(![[NSFileManager defaultManager] fileExistsAtPath:[self.lifeDatabase.fileURL path]]) {
-        NSLog(@"Creating database file");
-        [self.lifeDatabase saveToURL:self.lifeDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-            //[self setupFetchedResultsController];
-            //[self fetchFlickerDataIntoDocument:self.lifeDatabase];
-            
-        }];
-    } else if (self.lifeDatabase.documentState == UIDocumentStateClosed) {
-        NSLog(@"Opeing the database file");
-        NSLog(@"at %@", self.lifeDatabase.fileURL);
-        [self.lifeDatabase openWithCompletionHandler:^(BOOL success) {
-            // pass 
-        }];
-    } else if (self.lifeDatabase.documentState == UIDocumentStateNormal) {
-        NSLog(@"database file is open");
-        // pass
-    }
-}
-
-- (IBAction)signInPressed:(id)sender
-
-{
-    NSLog(@"login %@",self.loginEmail.text);
-    NSLog(@"Password: %@",self.loginPassword.text);
-    
-    // [self performSegueWithIdentifier:@"Show Journal" sender:self];
-    
     NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys: self.loginEmail.text, @"LOGIN_INFO_EMAIL", self.loginPassword.text, @"LOGIN_INFO_PASSWORD", nil];
-    
-    if (!self.lifeDatabase) {
-        NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-        url = [url URLByAppendingPathComponent:@"Default Photo Database"];
-        self.lifeDatabase = [[UIManagedDocument alloc] initWithFileURL:url];
-    }
-    [self useDocument];
     
     Login *login = [Login loginWithInfo:loginInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: @"Bob", @"USER_INFO_FIRSTNAME", @"Jones", @"USER_INFO_LASTNAME", [[NSNumber alloc] initWithInt:10], @"USER_INFO_ID", login, @"USER_INFO_LOGIN", nil];
@@ -62,9 +28,49 @@
     login.user = self.user;
     
     NSLog(@"here is the login: %@", login);
-
+    
     NSLog(@"here is the user: %@", self.user);
+    
     [self performSegueWithIdentifier:@"Show Journal" sender:self];
+
+}
+
+- (void)useDocument
+{
+    if(![[NSFileManager defaultManager] fileExistsAtPath:[self.lifeDatabase.fileURL path]]) {
+        NSLog(@"Creating database file");
+        [self.lifeDatabase saveToURL:self.lifeDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+            [self setupFetchedResultsController];
+            //[self fetchFlickerDataIntoDocument:self.lifeDatabase];
+            
+        }];
+    } else if (self.lifeDatabase.documentState == UIDocumentStateClosed) {
+        NSLog(@"Opeing the database file");
+        NSLog(@"at %@", self.lifeDatabase.fileURL);
+        [self.lifeDatabase openWithCompletionHandler:^(BOOL success) {
+            [self setupFetchedResultsController];
+            // pass 
+        }];
+    } else if (self.lifeDatabase.documentState == UIDocumentStateNormal) {
+        NSLog(@"database file is open");
+        [self setupFetchedResultsController];
+        // pass
+    }
+}
+
+- (IBAction)signInPressed:(id)sender
+
+{
+    NSLog(@"login %@",self.loginEmail.text);
+    NSLog(@"Password: %@",self.loginPassword.text);
+
+    
+    if (!self.lifeDatabase) {
+        NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        url = [url URLByAppendingPathComponent:@"Default Photo Database"];
+        self.lifeDatabase = [[UIManagedDocument alloc] initWithFileURL:url];
+    }
+    [self useDocument];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

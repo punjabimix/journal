@@ -15,7 +15,7 @@
     Note *note = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Note"];
-    request.predicate = [NSPredicate predicateWithFormat:@"date = %@", [noteInfo objectForKey:@"NOTE_INFO_DATE"]];
+    request.predicate = [NSPredicate predicateWithFormat:@"datewithtime = %@", [noteInfo objectForKey:@"NOTE_INFO_DATEWITHTIME"]];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
@@ -28,11 +28,12 @@
         note = [NSEntityDescription insertNewObjectForEntityForName:@"Note" inManagedObjectContext:context];
         note.content = [noteInfo objectForKey:@"NOTE_INFO_CONTENT"];
         note.date = [noteInfo objectForKey:@"NOTE_INFO_DATE"];
+        note.datewithtime = [noteInfo objectForKey:@"NOTE_INFO_DATEWITHTIME"];
         note.location = [noteInfo objectForKey:@"NOTE_INFO_LOCATION"];
         
         
         //********* must take user info */
-        note.whoAdded = [User userWithInfo:[noteInfo objectForKey:@"NOTE_INFO_USER"] inManagedObjectContext:context];
+        note.whoAdded = [noteInfo objectForKey: @"NOTE_INFO_USER"];
         //*********
         
         

@@ -88,6 +88,10 @@
     NSEntityDescription *checkInEntity = [NSEntityDescription entityForName:@"CheckIn" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     
     // setting up the request predicate for each table
+    NSLog(@"user: %@", self.user);
+    NSLog(@"user id: %i", self.user.id);
+    NSLog(@"user lastname: %@", self.user.lastName);
+
     requestPhoto.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
     requestVideo.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
     requestNote.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
@@ -106,10 +110,10 @@
     requestNote.returnsDistinctResults = YES;
     
     // all request should return an nsdictionaryresulttype
-    requestPhoto.resultType = NSDictionaryResultType;
-    requestNote.resultType = NSDictionaryResultType;
-    requestCheckin.resultType = NSDictionaryResultType;
-    requestVideo.resultType = NSDictionaryResultType;
+    requestPhoto.resultType = NSManagedObjectResultType;
+    requestNote.resultType = NSManagedObjectResultType;
+    requestCheckin.resultType = NSManagedObjectResultType;
+    requestVideo.resultType = NSManagedObjectResultType;
     
     // same sort descriptor will be used for all tables since they are all
     // sorted using the same attribute (datewithtime)
@@ -125,37 +129,60 @@
     // execute the request using managed object context
     NSError *error;
     NSArray *photos = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestPhoto error:&error];
-    NSLog(@"%@", photos);
     
     NSArray *checkins = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestCheckin error:&error];
     
-    NSLog(@"%@", checkins);
-    
     //NSArray *videos = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestVideo error:&error];
-    
     //NSLog(@"%@", videos);
     
     NSArray *notes = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestNote error:&error];
     
-    NSLog(@"%@", notes);
+    
+    /*
     if ([photos isKindOfClass:[NSArray class]]) {
         NSLog(@"Dates is Array");
     } else if ([photos isKindOfClass:[NSDictionary class]]) {
         NSLog(@"Dates is dic");
     }
+    */
     
     self.entries = [[NSMutableDictionary alloc] init];
     NSLog(@"count from query %i", [photos count]);
+    NSLog(@"count from query %i", [checkins count]);
+    NSLog(@"count from query %i", [notes count]);
     
-    for (int i =0 ; i< [photos count]; i++) {
-        NSDictionary *ith = [photos objectAtIndex:i]; 
-       // NSLog(@"ith: %@", ith);
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        NSLog(@"ithdate: %@", [ith objectForKey:@"date"]);
-        NSString *dateString = [dateFormatter stringFromDate:[ith objectForKey:@"date"]];
-        NSMutableArray *arrayOfEntry = [self.entries objectForKey:dateString];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    
+    // Take the 4 separate arrays and merge in one array
+    NSMutableSet *set = [NSMutableSet setWithArray:photos];
+    [set addObjectsFromArray:notes];
+    [set addObjectsFromArray:checkins];
+    NSArray *allEntries = [set allObjects];
+    
+    NSLog(@"All entries so far: %@", allEntries);
+    
+    //separate out the entries based on day
+    for (int i =0 ; i< [allEntries count]; i++) {
+        NSString *dateString = nil;
+        NSObject *ith = [allEntries objectAtIndex:i]; 
+        if ([ith isKindOfClass:[Photo class]]) {
+            Photo *obj = (Photo *)ith;
+            dateString = [dateFormatter stringFromDate:obj.date];
+            NSLog(@"This is a photo");
+        } else if ([ith isKindOfClass:[Note class]]) {
+            Note *obj = (Note *)ith;
+            dateString = [dateFormatter stringFromDate:obj.date];
+            NSLog(@"This is a note");
+        } else if ([ith isKindOfClass:[CheckIn class]]) {
+            CheckIn *obj = (CheckIn *)ith;        
+            dateString = [dateFormatter stringFromDate:obj.date];
+            NSLog(@"This is a checkin");
+        }
         
+       // NSLog(@"ith: %@", ith);
+        NSMutableArray *arrayOfEntry = [self.entries objectForKey:dateString];
+        NSLog(@"%@", dateString);
         if (!arrayOfEntry) {
             arrayOfEntry = [[NSMutableArray alloc] init];
             [arrayOfEntry addObject:ith];
@@ -165,6 +192,8 @@
         }
     }
     
+    NSLog(@"%@", self.entries);
+
     self.dates = [self.entries allKeys];    
     NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
     NSArray *sorters = [[NSArray alloc] initWithObjects:sorter, nil];
@@ -192,24 +221,28 @@
 - (void)useDocument
 {
     if(![[NSFileManager defaultManager] fileExistsAtPath:[self.lifeDatabase.fileURL path]]) {
+        NSLog(@"Document is new");
         [self.lifeDatabase saveToURL:self.lifeDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             [self setupFetchedResultsController];
             //[self fetchFlickerDataIntoDocument:self.lifeDatabase];
-            
         }];
     } else if (self.lifeDatabase.documentState == UIDocumentStateClosed) {
+        NSLog(@"Document is closed");
         [self.lifeDatabase openWithCompletionHandler:^(BOOL success) {
             [self setupFetchedResultsController];
         }];
     } else if (self.lifeDatabase.documentState == UIDocumentStateNormal) {
+        NSLog(@"Document is open");
         [self setupFetchedResultsController];
     }
 }
 
 - (void)setLifeDatabase:(UIManagedDocument *)lifeDatabase
 {
-    
+    NSLog(@"i am in the set lifedatabase");
+
     if(_lifeDatabase != lifeDatabase) {
+        NSLog(@"i am in the set life database if");
         _lifeDatabase = lifeDatabase;
         [self useDocument];
     }

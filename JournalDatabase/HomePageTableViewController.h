@@ -11,6 +11,8 @@
 #import "User.h"
 #import "Photo.h"
 #import "Photo+PhotoCategory.h"
+#import "CheckIn.h"
+#import "Note.h"
 
 @interface HomePageTableViewController : CoreDataTableViewController
 

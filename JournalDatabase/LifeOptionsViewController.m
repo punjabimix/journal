@@ -26,7 +26,6 @@
 -(void) setUser:(User *)user
 {
     _user = user;
-    
 }
 
 -(void) setLifeDatabase:(UIManagedDocument *)lifeDatabase
@@ -35,12 +34,11 @@
 }
 
 - (IBAction)captureLocation:(id)sender {
+    NSLog(@"I am going to capture the location now with user %@", self.user);
 }
 
 - (IBAction)capturePhoto:(id)sender 
 {
-    
-    
     NSLog(@"Inside capturePhoto");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
      
@@ -76,9 +74,7 @@
         } else {
             NSLog(@"Camera is not available");
         }
-        
     }
-    
 }
 
 
@@ -166,9 +162,11 @@
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     } else if([segue.identifier isEqualToString:@"Capture Note"]) {
+        NSLog(@"I am in Segue going to capture note with user: %@", self.user);
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     } else if ([segue.identifier isEqualToString:@"Capture Location"]) {
+        NSLog(@"I am in Segue going to capture location with user: %@", self.user);
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     }

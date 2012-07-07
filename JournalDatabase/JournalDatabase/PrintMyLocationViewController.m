@@ -44,15 +44,6 @@
 
 #pragma mark - View lifecycle
 
-
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
 - (void) setLifeDatabase:(UIManagedDocument *)lifeDatabase
 {
     _lifeDatabase = lifeDatabase;
@@ -81,8 +72,34 @@
 
 - (IBAction)saveLocation:(id)sender {
     CLLocation *location = self.myLocationManager.location;
-    NSDictionary *checkInInfo = [NSDictionary dictionaryWithObjectsAndKeys: self.user, @"CHECKIN_INFO_WHOADDED", location.coordinate.latitude,  @"CHECKIN_INFO_LATITUDE", location.coordinate.latitude,  @"CHECKIN_INFO_LONGITUDE", nil];
-    [CheckIn checkInWithInfo:checkInInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];  
+    self.myGeocoder = [[CLGeocoder alloc] init];
+    
+    NSDate *todaysDate = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    NSString * justDate = [dateFormatter stringFromDate:todaysDate];
+    NSDate * date = [dateFormatter dateFromString:justDate];
+    
+    NSMutableDictionary *checkInInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: self.user, @"CHECKIN_INFO_USER", date, @"CHECKIN_INFO_DATE", todaysDate, @"CHECKIN_INFO_DATEWITHTIME", nil];
+    [self.myGeocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error){
+        if (error == nil && [placemarks count] > 0) {
+            CLPlacemark *placemark = [placemarks objectAtIndex:0];
+            NSLog(@"List of places: %@", placemarks);
+            NSLog(@"Country: %@", placemark.country);
+            [checkInInfo setValue:placemark.country forKey:@"CHECKIN_INFO_PLACE"];
+            NSLog(@"Postal Code: %@", placemark.postalCode);
+            [checkInInfo setValue:placemark.postalCode forKey:@"CHECKIN_INFO_LOCATION"];
+            NSLog(@"Locality: %@", placemark.locality);
+        } else if (error==nil && [placemarks count] == 0) {
+            NSLog(@"No results found");
+        } else if (error != nil) {
+            NSLog(@"error occurred");
+        }
+    }];
+    // This is currently adding nil
+    // we will need to create a view for user to pick location and add to db based on that
+    CheckIn *checkin = [CheckIn checkInWithInfo:checkInInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    NSLog(@"Here is the check-in: %@", checkin);
     [self.navigationController popViewControllerAnimated:YES];
 
 }
