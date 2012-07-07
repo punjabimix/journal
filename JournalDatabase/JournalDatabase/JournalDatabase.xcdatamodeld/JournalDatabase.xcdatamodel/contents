@@ -24,6 +24,7 @@
         <attribute name="source" attributeType="String" syncable="YES"/>
         <attribute name="summary" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="whoAdded" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="media" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Note" representedClassName="Note" syncable="YES">
@@ -67,7 +68,7 @@
         <element name="CheckIn" positionX="79" positionY="-51" width="128" height="120"/>
         <element name="Entry" positionX="385" positionY="180" width="128" height="90"/>
         <element name="Login" positionX="-135" positionY="360" width="128" height="90"/>
-        <element name="Media" positionX="-416" positionY="-18" width="128" height="150"/>
+        <element name="Media" positionX="-416" positionY="-18" width="128" height="165"/>
         <element name="Note" positionX="88" positionY="75" width="128" height="120"/>
         <element name="Photo" positionX="79" positionY="204" width="128" height="135"/>
         <element name="Status" positionX="70" positionY="366" width="128" height="135"/>
