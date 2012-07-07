@@ -59,82 +59,51 @@
 
 -(void)setupFetchedResultsController
 {
-    /*
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
-    request.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
-    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"datewithtime" ascending:NO]];
-    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.lifeDatabase.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    
-    //NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Photo"];
-    NSInteger *numOfPhotos = [[self.fetchedResultsController sections] count]*;
-    NSLog(@"NUMOF PHOTOS: %i",numOfPhotos);
-    */
-    /*
-    for (int i =0; i< [[self.fetchedResultsController sections]; ) {
-        <#statements#>
-    }
-    */
-    
     // initializing the request for each table
-    NSFetchRequest *requestPhoto = [[NSFetchRequest alloc] init];
-    NSFetchRequest *requestVideo = [[NSFetchRequest alloc] init];
+    NSFetchRequest *requestMedia = [[NSFetchRequest alloc] init];
     NSFetchRequest *requestNote = [[NSFetchRequest alloc] init];
     NSFetchRequest *requestCheckin = [[NSFetchRequest alloc] init];
 
     // creating the entity description for each table
-    NSEntityDescription *photoEntity = [NSEntityDescription entityForName:@"Photo" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
-    NSEntityDescription *videoEntity = [NSEntityDescription entityForName:@"Video" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    NSEntityDescription *mediaEntity = [NSEntityDescription entityForName:@"Media" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     NSEntityDescription *noteEntity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     NSEntityDescription *checkInEntity = [NSEntityDescription entityForName:@"CheckIn" inManagedObjectContext:self.lifeDatabase.managedObjectContext];
-    
-    // setting up the request predicate for each table
-    NSLog(@"user: %@", self.user);
-    NSLog(@"user id: %i", self.user.id);
-    NSLog(@"user lastname: %@", self.user.lastName);
 
-    requestPhoto.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
-    requestVideo.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
+    requestMedia.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
     requestNote.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
     requestCheckin.predicate = [NSPredicate predicateWithFormat:@"whoAdded.id = %@", self.user.id];
     
     // setting up the entity of request for each table
-    requestPhoto.entity = photoEntity; 
-    requestVideo.entity = videoEntity;
+    requestMedia.entity = mediaEntity; 
     requestNote.entity = noteEntity;
     requestCheckin.entity = checkInEntity;
     
     // all requests should return distinct results
-    requestPhoto.returnsDistinctResults = YES;
+    requestMedia.returnsDistinctResults = YES;
     requestCheckin.returnsDistinctResults = YES;
-    requestVideo.returnsDistinctResults = YES;
     requestNote.returnsDistinctResults = YES;
     
     // all request should return an nsdictionaryresulttype
-    requestPhoto.resultType = NSManagedObjectResultType;
+    requestMedia.resultType = NSManagedObjectResultType;
     requestNote.resultType = NSManagedObjectResultType;
     requestCheckin.resultType = NSManagedObjectResultType;
-    requestVideo.resultType = NSManagedObjectResultType;
     
     // same sort descriptor will be used for all tables since they are all
     // sorted using the same attribute (datewithtime)
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"datewithtime" ascending:YES];
     
     // set sort descriptor for each request
-    [requestPhoto setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    [requestVideo setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    [requestMedia setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     [requestNote setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     [requestCheckin setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
 
     
     // execute the request using managed object context
     NSError *error;
-    NSArray *photos = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestPhoto error:&error];
+    NSArray *medias = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestMedia error:&error];
     
     NSArray *checkins = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestCheckin error:&error];
-    
-    //NSArray *videos = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestVideo error:&error];
-    //NSLog(@"%@", videos);
-    
+        
     NSArray *notes = [self.lifeDatabase.managedObjectContext executeFetchRequest:requestNote error:&error];
     
     
@@ -147,15 +116,15 @@
     */
     
     self.entries = [[NSMutableDictionary alloc] init];
-    NSLog(@"count from query %i", [photos count]);
-    NSLog(@"count from query %i", [checkins count]);
-    NSLog(@"count from query %i", [notes count]);
+    NSLog(@"count from media query %i", [medias count]);
+    NSLog(@"count from checkin query %i", [checkins count]);
+    NSLog(@"count from note query %i", [notes count]);
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     
     // Take the 4 separate arrays and merge in one array
-    NSMutableSet *set = [NSMutableSet setWithArray:photos];
+    NSMutableSet *set = [NSMutableSet setWithArray:medias];
     [set addObjectsFromArray:notes];
     [set addObjectsFromArray:checkins];
     NSArray *allEntries = [set allObjects];
@@ -166,7 +135,7 @@
     for (int i =0 ; i< [allEntries count]; i++) {
         NSString *dateString = nil;
         NSObject *ith = [allEntries objectAtIndex:i]; 
-        if ([ith isKindOfClass:[Photo class]]) {
+        if ([ith isKindOfClass:[Media class]]) {
             Photo *obj = (Photo *)ith;
             dateString = [dateFormatter stringFromDate:obj.date];
             NSLog(@"This is a photo");
@@ -199,7 +168,7 @@
     NSArray *sorters = [[NSArray alloc] initWithObjects:sorter, nil];
     self.dates = [self.dates sortedArrayUsingDescriptors:sorters];
     
-    //[self.tableView reloadData];
+    [self.tableView reloadData];
     
     //NSLog(@"Dates: %@",self.dates);
     

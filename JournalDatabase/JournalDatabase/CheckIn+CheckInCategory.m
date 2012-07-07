@@ -16,14 +16,14 @@
     CheckIn *checkin = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"CheckIn"];
-    request.predicate = [NSPredicate predicateWithFormat:@"date = %@", [checkInInfo objectForKey:@"CHECKIN_INFO_DATEWITHTIME"]];
+    request.predicate = [NSPredicate predicateWithFormat:@"datewithtime = %@", [checkInInfo objectForKey:@"CHECKIN_INFO_DATEWITHTIME"]];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"datewithtime" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
-    if (!matches || ([matches count] > 1)) {
+    if (!matches) {
         //error
     } else if ([matches count] == 0) {
         checkin = [NSEntityDescription insertNewObjectForEntityForName:@"CheckIn" inManagedObjectContext:context];
@@ -33,12 +33,6 @@
         checkin.place = [checkInInfo objectForKey:@"CHECKIN_INFO_PLACE"];
         checkin.datewithtime = [checkInInfo objectForKey:@"CHECKIN_INFO_DATEWITHTIME"];
         checkin.whoAdded = [checkInInfo objectForKey:@"CHECKIN_INFO_WHOADDED"];
-        
-        
-        //********* must take user info */
-        //photo.whoAdded = [User userWithInfo:[photoInfo objectForKey:PHOTO_USER_INFO] inManagedObjectContext:context];
-        //*********
-        
         
         //update user info here
     } else {

@@ -79,8 +79,8 @@
     [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
     NSString * justDate = [dateFormatter stringFromDate:todaysDate];
     NSDate * date = [dateFormatter dateFromString:justDate];
-    
-    NSMutableDictionary *checkInInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: self.user, @"CHECKIN_INFO_USER", date, @"CHECKIN_INFO_DATE", todaysDate, @"CHECKIN_INFO_DATEWITHTIME", nil];
+    NSLog(@"%@", self.user);
+    NSMutableDictionary *checkInInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys: self.user, @"CHECKIN_INFO_WHOADDED", date, @"CHECKIN_INFO_DATE", todaysDate, @"CHECKIN_INFO_DATEWITHTIME", nil];
     [self.myGeocoder reverseGeocodeLocation:location completionHandler:^(NSArray *placemarks, NSError *error){
         if (error == nil && [placemarks count] > 0) {
             CLPlacemark *placemark = [placemarks objectAtIndex:0];

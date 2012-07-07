@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "CoreDataTableViewController.h"
 #import "User.h"
+#import "Media.h"
 #import "Photo.h"
 #import "Photo+PhotoCategory.h"
 #import "CheckIn.h"
