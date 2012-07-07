@@ -32,7 +32,7 @@
         login.password = [loginInfo objectForKey:@"LOGIN_INFO_PASSWORD"];
          
         //********* must take user info */
-        //login.user = [User userWithInfo:[loginInfo objectForKey:LOGIN_USER_INFO] inManagedObjectContext:context];
+        login.user = [loginInfo objectForKey:@"LOGIN_INFO_USER"];
         //*********
         
         

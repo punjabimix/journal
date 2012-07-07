@@ -16,8 +16,6 @@
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
     Login * tmpLogin = (Login *)[userInfo objectForKey:@"USER_INFO_LOGIN"];
-    NSLog(@"printing login: %@", tmpLogin);
-    
     request.predicate = [NSPredicate predicateWithFormat:@"login.email = %@", tmpLogin.email];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"firstName" ascending:YES];
     request.sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
@@ -28,29 +26,15 @@
     if (!matches || ([matches count] > 1)) {
         //error
     } else if ([matches count] == 0) {
+        //update user info here
         user = [NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:context];
+        user.id = [userInfo objectForKey:@"USER_INFO_ID"];
         user.firstName = [userInfo objectForKey:@"USER_INFO_FIRSTNAME"];
         user.lastName = [userInfo objectForKey:@"USER_INFO_LASTNAME"];
         user.age = [userInfo objectForKey:@"USER_INFO_AGE"];
         user.gender = [userInfo objectForKey:@"USER_INFO_GENDER"];
         user.dob = [userInfo objectForKey:@"USER_INFO_DOB"];
         user.login = [userInfo objectForKey:@"USER_INFO_LOGIN"];
-        
-        
-        /** need to generate ID for that to happen we need email*/
-       // user.id = [userInfo objectForKey:USER_ID];
-        
-         /*****/
-         /*
-        user.login = [userInfo objectForKey:USER_LOGIN];
-        user.status = [userInfo objectForKey:USER_STATUS];
-        user.checkin = [userInfo objectForKey:USER_CHECKIN];
-        user.photo = [userInfo objectForKey:USER_PHOTO];
-        user.note = [userInfo objectForKey:USER_NOTE];
-        user.audio = [userInfo objectForKey:USER_AUDIO];
-         */
-        
-        //update user info here
     } else {
         user = [matches lastObject];
     }

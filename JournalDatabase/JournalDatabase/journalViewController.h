@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "User.h"
+#import "User+UserCategory.h"
 
 @interface journalViewController : UIViewController 
 

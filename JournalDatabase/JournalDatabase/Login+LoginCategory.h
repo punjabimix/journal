@@ -7,6 +7,7 @@
 //
 
 #import "Login.h"
+#import "User.h"
 
 @interface Login (LoginCategory)
 

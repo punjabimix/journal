@@ -56,7 +56,6 @@
                                 </state>
                                 <connections>
                                     <action selector="signInPressed:" destination="2" eventType="touchUpInside" id="jmv-89-kP7"/>
-                                    <segue destination="ebG-Kh-8bh" kind="push" identifier="Show Journal" id="yJo-y3-Wmx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -66,6 +65,7 @@
                     <connections>
                         <outlet property="loginEmail" destination="dpS-Ik-IUs" id="CbX-bI-NMM"/>
                         <outlet property="loginPassword" destination="Qlv-Bw-OkW" id="Ku4-W0-1zH"/>
+                        <segue destination="ebG-Kh-8bh" kind="push" identifier="Show Journal" id="YRt-LB-S4S"/>
                     </connections>
                 </viewController>
             </objects>
@@ -286,6 +286,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="7pp-nE-NFa"/>
+                    <connections>
+                        <outlet property="note" destination="Q5f-we-0Ys" id="BOC-UM-Ca7"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1892" y="-384"/>
@@ -481,6 +484,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Qzk-cD-fHW"/>
+        <segue reference="YRt-LB-S4S"/>
     </inferredMetricsTieBreakers>
 </document>
