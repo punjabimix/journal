@@ -23,6 +23,130 @@
 @synthesize entries = _entries;
 @synthesize dates = _dates;
 @synthesize tableView = _tableView;
+@synthesize scrollViewEntries = _scrollViewEntries;
+@synthesize selectedEntryNumber = _selectedEntryNumber;
+
+
+-(BOOL)saveMedia:(NSData *)mediaData withType:(NSString *)type
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSDate *dateWithTime = [NSDate date];
+    
+    NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM-dd-yyyy HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:dateWithTime];
+    NSString *savedMediaPath = nil;
+    NSLog(@"dateString %@",dateString); 
+    savedMediaPath = [documentsDirectory stringByAppendingString:@"/"];
+    savedMediaPath = [savedMediaPath stringByAppendingString:dateString];
+    NSDate *date = [[NSDate alloc] init];
+    NSDictionary *mediaInfo = nil;
+    
+    NSLog(@"gtting type in saveMedia %@", type);
+    if([type isEqualToString:@"photo"]) {
+        // NSLog(@"in photo selection");
+        
+        //dateString = [dateString stringByAppendingPathComponent:@""]
+        savedMediaPath = [savedMediaPath stringByAppendingPathExtension:@"png"];
+        [mediaData writeToFile:savedMediaPath atomically:NO];
+        
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+        // voila!
+        date = [dateFormatter dateFromString:strDate];
+        
+        mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"photo", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
+        
+    } else if([type isEqualToString:@"video"]) {
+        //NSLog(@"In Video selection");
+        
+        //dateString = [dateString stringByAppendingPathComponent:@""]
+        savedMediaPath = [savedMediaPath stringByAppendingPathExtension:@"mp4"];
+        [mediaData writeToFile:savedMediaPath atomically:NO];
+        
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+        
+        // voila!
+        date = [dateFormatter dateFromString:strDate];
+        
+        mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"video", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
+        
+    } else if([type isEqualToString:@"audio"]) {
+        //dateString = [dateString stringByAppendingPathComponent:@""]
+        savedMediaPath = [savedMediaPath stringByAppendingPathExtension:@".mp3"];
+        [mediaData writeToFile:savedMediaPath atomically:NO];
+        
+        
+        [dateFormatter setDateFormat:@"MM-dd-yyyy"];
+        NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+        
+        // voila!
+        date = [dateFormatter dateFromString:strDate];
+        
+        mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"audio", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
+        
+    }
+    NSLog(@"saving with URL %@",savedMediaPath);
+    Media *media = [Media mediaWithInfo:mediaInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
+    
+    if(media) {
+        return YES;
+    }
+    
+    return NO;
+    //UIImage *image = imageView.image; // imageView is my image from cameraå
+}
+
+- (void)capturePhoto 
+{
+    //NSLog(@"Inside capturePhoto");
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        
+        if([mediaTypes containsObject:(NSString *)kUTTypeImage]){
+            NSLog(@"Camera is availble");
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeImage];
+            picker.allowsEditing = YES;
+            [self presentModalViewController:picker animated:YES];
+        }
+    }
+}
+
+
+- (void)recordVideo 
+{
+    // NSLog(@"Inside recordVideo");
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        
+        if([mediaTypes containsObject:(NSString *)kUTTypeMovie]){
+            NSLog(@"Camera is availble");
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.delegate = self;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.mediaTypes = [NSArray arrayWithObject:(NSString *)kUTTypeMovie];
+            picker.allowsEditing = YES;
+            [self presentModalViewController:picker animated:YES];
+        } else {
+            NSLog(@"Camera is not available");
+        }
+    }
+}
+
+
+
+-(void) setSelectedEntryNumber:(NSNumber *)selectedEntryNumber
+{
+    _selectedEntryNumber = selectedEntryNumber;
+}
+
 
 -(void) setEntries:(NSDictionary *)entries
 {
@@ -195,6 +319,45 @@
     }
 }
 
+- (void) addEntry:(id)sender
+{
+    NSLog(@"filename received: %i", [sender tag]);  
+    int buttonNumber = [sender tag];
+    if(buttonNumber == 0) {
+        //location
+        [self performSegueWithIdentifier:@"Show Location" sender:self];
+    } else if (buttonNumber == 1) {
+        // note
+        [self performSegueWithIdentifier:@"Show Note" sender:self];
+    } else if (buttonNumber == 2) {
+        [self capturePhoto];
+    } else if (buttonNumber == 3) {
+        [self recordVideo];
+    }
+    
+}
+
+- (void) entryAction:(id)sender
+{
+    int buttonNumber = [sender tag];
+    int rowNumber = buttonNumber/5000 ;
+    int entryNumber = buttonNumber - (rowNumber*5000) ;
+    NSLog(@"button tag %i with RowMuber=%i, and entryNUmber=%i",buttonNumber,rowNumber, entryNumber);
+    
+    NSString *date = [self.dates objectAtIndex:rowNumber];
+    NSArray *itemsForDate = [self.entries objectForKey:date];
+    
+    NSSortDescriptor *sortDescriptor;
+    sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"datewithtime"
+                                                 ascending:NO];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    itemsForDate = [itemsForDate sortedArrayUsingDescriptors:sortDescriptors];
+    self.scrollViewEntries = [NSMutableArray arrayWithArray:itemsForDate];
+    self.selectedEntryNumber = [[NSNumber alloc] initWithInt:entryNumber];
+    [self performSegueWithIdentifier:@"Show Entries" sender:self];
+    
+}
+
 -(void) setUser:(User *)user
 {
     // NSLog(@"i am in the set user");
@@ -231,10 +394,17 @@
     return CELL_HEIGHT;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    NSLog(@"Hi im in the view did appear");
+    [self useDocument];
+    [self viewDidLoad];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
+    NSLog(@"Im in the view did load");
     [super viewDidLoad];
     
     self.navigationController.navigationBarHidden = YES;
@@ -256,6 +426,9 @@
         lifeOptionButton.frame = CGRectMake((i+1)*3+(BUTTON_DIM)*i,2,BUTTON_DIM,BUTTON_DIM);
         NSString *filename = [imageFiles objectAtIndex:i];
         [lifeOptionButton setBackgroundImage:[UIImage imageNamed:filename] forState:UIControlStateNormal];
+        //[lifeOptionButton addTarget:self action:@selector(addEntry:) withObject:filename forControlEvents:UIControlEventTouchUpInside];
+        [lifeOptionButton addTarget:self action:@selector(addEntry:) forControlEvents:UIControlEventTouchUpInside];
+        lifeOptionButton.tag = i;
         [topScrollView addSubview:lifeOptionButton];
     }
     
@@ -288,10 +461,14 @@
     [self useDocument];
 }
 
+
+
 - (void) goBack
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -456,6 +633,9 @@
         }
         
         //buttonForItem.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+        [buttonForItem addTarget:self action:@selector(entryAction:) forControlEvents:UIControlEventTouchUpInside];
+        buttonForItem.tag = i + (5000* indexPath.row);
+        
         
         [buttonBackground addSubview:buttonForItem];
         // NSData *imageData= (NSData *)[(NSDictionary *)[itemsForDate objectAtIndex:i] objectForKey:@"bitmap"];
@@ -474,8 +654,115 @@
     
     return cell;
     
+}
+
+-(void)dismissImagePicker
+{
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     
+    NSLog(@"Picker returned successfully.");
+    NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     
+    if ([mediaType isEqualToString:(__bridge NSString *)kUTTypeMovie]){
+        NSURL *urlOfVideo = [info objectForKey:UIImagePickerControllerMediaURL];
+        NSLog(@"Video URL = %@", urlOfVideo);
+        
+        NSError *dataReadingError = nil;
+        NSData *videoData = [NSData dataWithContentsOfURL:urlOfVideo options:NSDataReadingMapped error:&dataReadingError];
+        if (videoData != nil){ 
+            NSLog(@"Succesfully loaded the data.");
+            
+            BOOL savingVideo = [self saveMedia:videoData withType:@"video"];
+            /* We were able to read the data */ 
+            if(savingVideo) {
+                NSLog(@"Succesfully saved the video.");
+            } else {
+                NSLog(@"Failed to save video.");
+            }
+            
+        } else { 
+            /* We failed to read the data. Use the dataReadingError
+             variable to determine what the error is */ 
+            NSLog(@"Failed to load the data with error = %@", dataReadingError);
+        }
+    } else if ([mediaType isEqualToString:(__bridge NSString *)kUTTypeImage]){
+        NSDictionary *metadata = [info objectForKey:UIImagePickerControllerMediaMetadata];
+        //NSLog(@"Image Metadata = %@", metadata);
+        
+        UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+        if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        
+        
+        if(image) {
+            NSLog(@"Picture Taken");
+            
+            NSData *imageData = UIImagePNGRepresentation(image);
+            BOOL savingPhoto = [self saveMedia:imageData withType:@"photo"];
+            if(savingPhoto) {
+                NSLog(@"Succesfully saved the photo.");
+            } else {
+                NSLog(@"Failed to save photo.");
+            }
+            
+            //  [imageData writeToFile:[self getPathToStore:@"photo"] atomically:NO];
+            
+            //** Saving to Photo ALbum
+            //UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+            //UIImageWriteToSavedPhotosAlbum(image,self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:),NULL);
+            
+            //[self saveImage:image];
+        }
+        
+    }
+    [self dismissImagePicker];
+    /*
+     
+     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+     if (!image) image = [info objectForKey:UIImagePickerControllerOriginalImage];
+     
+     
+     if(image) {
+     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+     [self saveImage:image];
+     NSLog(@"Picture Taken");
+     }
+     [self dismissImagePicker];*/
+}
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissImagePicker];
+}
+
+
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"Show Homepage"]) {
+        [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    } else if([segue.identifier isEqualToString:@"Show Note"]) {
+        NSLog(@"I am in Segue going to capture note with user: %@", self.user);
+        [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    } else if ([segue.identifier isEqualToString:@"Show Location"]) {
+        [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    } else if([segue.identifier isEqualToString:@"Show Life"]) {
+        [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    } else if([segue.identifier isEqualToString:@"Show Entries"]) {
+        [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+        [segue.destinationViewController setSelectedEntryNumber:self.selectedEntryNumber];
+        [segue.destinationViewController setScrollViewEntries:self.scrollViewEntries];
+        
+    }
 }
 
 

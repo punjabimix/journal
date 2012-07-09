@@ -28,6 +28,7 @@
 		6D91798B15A971E2007331A9 /* checkin.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D91798615A971E2007331A9 /* checkin.png */; };
 		6D91798C15A971E2007331A9 /* note.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D91798715A971E2007331A9 /* note.png */; };
 		6D91798D15A971E2007331A9 /* video.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 6D91798815A971E2007331A9 /* video.jpeg */; };
+		6D94131B15AAA34500759A6E /* EntriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D94131A15AAA34500759A6E /* EntriesViewController.m */; };
 		6D9C133315A6AC5900F3CD49 /* CheckIn+CheckInCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9C133215A6AC5900F3CD49 /* CheckIn+CheckInCategory.m */; };
 		6D9C5D6415A17B1D00A46B6A /* CoreDataUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9C5D6315A17B1C00A46B6A /* CoreDataUIViewController.m */; };
 		6DABF538159C0A3800D34EA0 /* EntriesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DABF537159C0A3800D34EA0 /* EntriesTableViewController.m */; };
@@ -88,6 +89,8 @@
 		6D91798615A971E2007331A9 /* checkin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkin.png; sourceTree = "<group>"; };
 		6D91798715A971E2007331A9 /* note.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = note.png; sourceTree = "<group>"; };
 		6D91798815A971E2007331A9 /* video.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = video.jpeg; sourceTree = "<group>"; };
+		6D94131915AAA34500759A6E /* EntriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntriesViewController.h; sourceTree = "<group>"; };
+		6D94131A15AAA34500759A6E /* EntriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntriesViewController.m; sourceTree = "<group>"; };
 		6D9C133115A6AC5900F3CD49 /* CheckIn+CheckInCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CheckIn+CheckInCategory.h"; sourceTree = "<group>"; };
 		6D9C133215A6AC5900F3CD49 /* CheckIn+CheckInCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CheckIn+CheckInCategory.m"; sourceTree = "<group>"; };
 		6D9C5D6215A17B1C00A46B6A /* CoreDataUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataUIViewController.h; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				6D91798E15A971F7007331A9 /* images */,
 				6D91798015A971B4007331A9 /* LifeViewController.h */,
 				6D91798115A971B4007331A9 /* LifeViewController.m */,
+				6D94131915AAA34500759A6E /* EntriesViewController.h */,
+				6D94131A15AAA34500759A6E /* EntriesViewController.m */,
 				6D9C133115A6AC5900F3CD49 /* CheckIn+CheckInCategory.h */,
 				6D9C133215A6AC5900F3CD49 /* CheckIn+CheckInCategory.m */,
 				D8FCF44015A2BD7500167303 /* CaptureNoteViewController.h */,
@@ -388,6 +393,7 @@
 				6DD68E7315A7FCC300E06624 /* User.m in Sources */,
 				6D5287F815A816090006534F /* Testing.m in Sources */,
 				6D91798215A971B4007331A9 /* LifeViewController.m in Sources */,
+				6D94131B15AAA34500759A6E /* EntriesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
