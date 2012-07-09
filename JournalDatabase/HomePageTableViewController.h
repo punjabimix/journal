@@ -14,6 +14,8 @@
 #import "Photo+PhotoCategory.h"
 #import "CheckIn.h"
 #import "Note.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface HomePageTableViewController : CoreDataTableViewController
 

@@ -27,7 +27,7 @@
 -(void)setupFetchedResultsController 
 {
     NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys: self.loginEmail.text, @"LOGIN_INFO_EMAIL", self.loginPassword.text, @"LOGIN_INFO_PASSWORD", nil];
-    
+    /*
     BOOL userExit = [Login checkUser:loginInfo inManangedObjectContext:self.lifeDatabase.managedObjectContext];
     
     if(userExit == NO) {
@@ -39,7 +39,7 @@
                               otherButtonTitles:nil];
         [alert show];
         
-    } else {
+    } else {*/
     Login *login = [Login loginWithInfo:loginInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys: @"Bob", @"USER_INFO_FIRSTNAME", @"Jones", @"USER_INFO_LASTNAME", [[NSNumber alloc] initWithInt:10], @"USER_INFO_ID", login, @"USER_INFO_LOGIN", nil];
     
@@ -52,7 +52,7 @@
    // NSLog(@"here is the user: %@", self.user);
     
     [self performSegueWithIdentifier:@"Show Journal" sender:self];
-    }
+   // }
 
 }
 
@@ -67,7 +67,7 @@
         }];
     } else if (self.lifeDatabase.documentState == UIDocumentStateClosed) {
         NSLog(@"Opeing the database file");
-        NSLog(@"at %@", self.lifeDatabase.fileURL);
+       // NSLog(@"at %@", self.lifeDatabase.fileURL);
         [self.lifeDatabase openWithCompletionHandler:^(BOOL success) {
             [self setupFetchedResultsController];
             // pass 
@@ -107,8 +107,6 @@
     }
     
 }
-
-
 
 - (void)viewDidLoad
 {

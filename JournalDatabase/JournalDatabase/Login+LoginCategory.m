@@ -23,7 +23,7 @@
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     
-    NSLog(@"Matches found in Login+Category; %@ with count:%i",matches, [matches count]);
+   // NSLog(@"Matches found in Login+Category; %@ with count:%i",matches, [matches count]);
     
     if (!matches ) {
         //error
@@ -49,8 +49,6 @@
 + (BOOL) doesEmailExit:(NSString *)email inManangedObjectContext:(NSManagedObjectContext *)context
 {
     BOOL ret = NO;
-    
-    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Login"];
     request.predicate = [NSPredicate predicateWithFormat:@"email = %@", email];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"email" ascending:YES];

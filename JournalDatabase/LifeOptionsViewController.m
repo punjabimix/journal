@@ -28,11 +28,17 @@
     NSString *dateString = [dateFormatter stringFromDate:dateWithTime];
     NSString *savedMediaPath = nil;
     NSLog(@"dateString %@",dateString); 
+    savedMediaPath = [documentsDirectory stringByAppendingString:@"/"];
+    savedMediaPath = [savedMediaPath stringByAppendingString:dateString];
     NSDate *date = [[NSDate alloc] init];
     NSDictionary *mediaInfo = nil;
-    if([type compare:@"photo"]) {
+    
+    NSLog(@"gtting type in saveMedia %@", type);
+    if([type isEqualToString:@"photo"]) {
+       // NSLog(@"in photo selection");
+        
         //dateString = [dateString stringByAppendingPathComponent:@""]
-        savedMediaPath = [documentsDirectory stringByAppendingPathExtension:@".png"];
+        savedMediaPath = [savedMediaPath stringByAppendingPathExtension:@"png"];
         [mediaData writeToFile:savedMediaPath atomically:NO];
         
         [dateFormatter setDateFormat:@"MM-dd-yyyy"];
@@ -42,9 +48,11 @@
         
         mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"photo", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
 
-    } else if([type compare:@"video"]) {
+    } else if([type isEqualToString:@"video"]) {
+        //NSLog(@"In Video selection");
+        
         //dateString = [dateString stringByAppendingPathComponent:@""]
-        savedMediaPath = [documentsDirectory stringByAppendingPathExtension:@".mp4"];
+        savedMediaPath = [savedMediaPath stringByAppendingPathExtension:@"mp4"];
         [mediaData writeToFile:savedMediaPath atomically:NO];
         
         [dateFormatter setDateFormat:@"MM-dd-yyyy"];
@@ -55,9 +63,9 @@
         
         mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"video", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
        
-    } else if([type compare:@"audio"]) {
+    } else if([type isEqualToString:@"audio"]) {
         //dateString = [dateString stringByAppendingPathComponent:@""]
-        savedMediaPath = [documentsDirectory stringByAppendingPathExtension:@".mp3"];
+        savedMediaPath = [savedMediaPath stringByAppendingPathExtension:@".mp3"];
         [mediaData writeToFile:savedMediaPath atomically:NO];
         
         
@@ -70,7 +78,7 @@
         mediaInfo = [NSDictionary dictionaryWithObjectsAndKeys: dateWithTime, @"MEDIA_INFO_DATEWITHTIME", date, @"MEDIA_INFO_DATE", @"1stphoto", @"MEDIA_INFO_SUMMARY", savedMediaPath, @"MEDIA_INFO_SOURCE", @"audio", @"MEDIA_INFO_TYPE", self.user, @"MEDIA_INFO_WHOADDED", nil];
         
     }
-    
+    NSLog(@"saving with URL %@",savedMediaPath);
     Media *media = [Media mediaWithInfo:mediaInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
     
     if(media) {
@@ -104,7 +112,7 @@
 
 - (IBAction)capturePhoto:(id)sender 
 {
-    NSLog(@"Inside capturePhoto");
+    //NSLog(@"Inside capturePhoto");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
      
         NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
@@ -123,7 +131,7 @@
 
 - (IBAction)recordVideo:(id)sender 
 {
-    NSLog(@"Inside recordVideo");
+   // NSLog(@"Inside recordVideo");
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         
         NSArray *mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
@@ -264,6 +272,9 @@
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     } else if ([segue.identifier isEqualToString:@"Capture Location"]) {
         NSLog(@"I am in Segue going to capture location with user: %@", self.user);
+        [segue.destinationViewController setUser:self.user];
+        [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
+    } else if([segue.identifier isEqualToString:@"Show Life"]) {
         [segue.destinationViewController setUser:self.user];
         [segue.destinationViewController setLifeDatabase:self.lifeDatabase];
     }

@@ -146,7 +146,7 @@
     [set addObjectsFromArray:checkins];
     NSArray *allEntries = [set allObjects];
     
-    NSLog(@"All entries so far: %@", allEntries);
+    //NSLog(@"All entries so far: %@", allEntries);
     
     //separate out the entries based on day
     for (int i =0 ; i< [allEntries count]; i++) {
@@ -155,20 +155,20 @@
         if ([ith isKindOfClass:[Media class]]) {
             Photo *obj = (Photo *)ith;
             dateString = [dateFormatter stringFromDate:obj.date];
-            NSLog(@"This is a photo");
+           // NSLog(@"This is a photo");
         } else if ([ith isKindOfClass:[Note class]]) {
             Note *obj = (Note *)ith;
             dateString = [dateFormatter stringFromDate:obj.date];
-            NSLog(@"This is a note");
+           // NSLog(@"This is a note");
         } else if ([ith isKindOfClass:[CheckIn class]]) {
             CheckIn *obj = (CheckIn *)ith;        
             dateString = [dateFormatter stringFromDate:obj.date];
-            NSLog(@"This is a checkin");
+           // NSLog(@"This is a checkin");
         }
         
        // NSLog(@"ith: %@", ith);
         NSMutableArray *arrayOfEntry = [self.entries objectForKey:dateString];
-        NSLog(@"%@", dateString);
+       // NSLog(@"%@", dateString);
         if (!arrayOfEntry) {
             arrayOfEntry = [[NSMutableArray alloc] init];
             [arrayOfEntry addObject:ith];
@@ -178,7 +178,7 @@
         }
     }
     
-    NSLog(@"%@", self.entries);
+   // NSLog(@"%@", self.entries);
 
     self.dates = [self.entries allKeys];    
     NSSortDescriptor *sorter = [[NSSortDescriptor alloc] initWithKey:@"self" ascending:YES];
@@ -244,7 +244,6 @@
 {
     [super viewWillAppear:animated];
     
-    
     if (!self.lifeDatabase) {
         NSLog(@"Reseting PhotoDase again");
         
@@ -254,7 +253,6 @@
         //[self useDocument];
     }
     //
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -274,7 +272,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    /*
     static NSString *CellIdentifier = @"Day Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -282,9 +280,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    return cell;
+    return cell;*/
     
- /*   
+ /*  
     static NSString *CellIdentifier = @"Day Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -311,10 +309,6 @@
     
     return cell;
 */
- 
-    
-/*******************************************************    
-    
     
     
     //[self.tableView reloadData];
@@ -348,12 +342,19 @@
     
     CGRect rect = [[UIScreen mainScreen] bounds];
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, CELL_HEIGHT)];
-    view.backgroundColor = [UIColor clearColor];
-    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, HEADER_HEIGHT)];
+    view.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206/255.0 blue:235.0/255.0 alpha:1.0];
+    
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, rect.size.width, HEADER_HEIGHT)];
+    headerView.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206/255.0 blue:235.0/255.0 alpha:1.0];
+    UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake(2, 1, rect.size.width-2, HEADER_HEIGHT-1)];
+    headerLabel.backgroundColor = [UIColor colorWithRed:135.0/255.0 green:206/255.0 blue:235.0/255.0 alpha:1.0];
+    [headerLabel setTextColor:[UIColor blackColor]];
+    //[headerLabel setBackgroundColor:[UIColor clearColor]];
     headerLabel.text = date;
-    headerLabel.backgroundColor = [UIColor lightGrayColor];
-    headerLabel.textColor = [UIColor darkGrayColor];
-    [view addSubview:headerLabel];
+  
+    [headerView addSubview:headerLabel];
+    [view   addSubview:headerView];
     
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, HEADER_HEIGHT, rect.size.width, SCROLL_VIEW_HEIGHT)];
     scrollView.backgroundColor = [UIColor colorWithRed:192.0/255.0 green:192.0/255.0 blue:192.0/255.0 alpha:1.0];
@@ -363,13 +364,63 @@
         //NSURL *url = [NSURL URLWithString:[itemsForDate objectAtIndex:i]];
         
         //NSData *imageData = [NSData dataWithContentsOfURL:url];
+        UIButton *buttonForItem = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        buttonForItem.frame = CGRectMake((ITEM_WIDTH+2)*i, 0, ITEM_WIDTH, SCROLL_VIEW_HEIGHT);
         
-        NSData *imageData= (NSData *)[(NSDictionary *)[itemsForDate objectAtIndex:i] objectForKey:@"bitmap"];
-        UIImage *image = [UIImage imageWithData:imageData];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.frame = CGRectMake(ITEM_WIDTH*i, 0, ITEM_WIDTH, SCROLL_VIEW_HEIGHT);
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        [scrollView addSubview:imageView];
+        NSObject *obj = [itemsForDate objectAtIndex:i]; 
+        if ([obj isKindOfClass:[Media class]]) {
+            Media *mediaObj = (Media *)obj;
+            NSString *type = mediaObj.type;
+            NSLog(@"MediaObj Type: %@",type);
+           
+            NSURL *url = [NSURL fileURLWithPath:mediaObj.source];
+            
+           // NSLog(@"%@", [type compare:@"video"]);
+            if([type isEqualToString:@"video"]) {
+                
+                AVURLAsset *asset = [[AVURLAsset alloc] initWithURL:url options:nil];
+                AVAssetImageGenerator *generate = [[AVAssetImageGenerator alloc] initWithAsset:asset];
+                NSError *err = NULL;
+                CMTime time = CMTimeMake(1, 10);
+                CGImageRef imgRef = [generate copyCGImageAtTime:time actualTime:NULL error:&err];
+               // NSLog(@"err==%@, imageRef==%@", err, imgRef);
+                UIImage *currentImg = [[UIImage alloc] initWithCGImage:imgRef];
+                [buttonForItem setBackgroundImage:currentImg forState:UIControlStateNormal];
+                [buttonForItem setImage:[UIImage imageNamed:@"play.png"]  forState:UIControlStateNormal];
+            } else if([type isEqualToString:@"photo"]) {
+                
+                NSData *imageData = [NSData dataWithContentsOfURL:url];
+                [buttonForItem setBackgroundImage:[UIImage imageWithData:imageData] forState:UIControlStateNormal];
+                
+            }
+            
+            NSLog(@"File URL: %@", mediaObj.source);
+        } else if ([obj isKindOfClass:[Note class]]) {
+            Note *noteObj = (Note *)obj;
+           // UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake((ITEM_WIDTH+2)*i, 0, ITEM_WIDTH, SCROLL_VIEW_HEIGHT)];
+            //headerLabel.text = noteObj.content;
+            //b//uttonForItem.titleLabel.text = noteObj.content;
+            
+            [buttonForItem setTitle:noteObj.content forState:UIControlStateNormal];
+            
+            NSLog(@"Note description: %@", noteObj.content);
+        } else if ([obj isKindOfClass:[CheckIn class]]) {
+            CheckIn *checkInObj = (CheckIn *)obj;
+            NSString *checkedIn = @"Checked in at ";
+            [checkedIn stringByAppendingString:checkInObj.place];
+            //buttonForItem.titleLabel.text =  checkedIn;
+            [buttonForItem setTitle:checkedIn forState:UIControlStateNormal];
+            
+            NSLog(@"CheckInLocation: %@", checkInObj.location);
+        }
+        
+        
+       // NSData *imageData= (NSData *)[(NSDictionary *)[itemsForDate objectAtIndex:i] objectForKey:@"bitmap"];
+       // UIImage *image = [UIImage imageWithData:imageData];
+       // UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+       // imageView.frame = CGRectMake(ITEM_WIDTH*i, 0, ITEM_WIDTH, SCROLL_VIEW_HEIGHT);
+       // imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [scrollView addSubview:buttonForItem];
     }
     [view addSubview:scrollView];
     
@@ -377,7 +428,7 @@
     
     
     return cell;
-    */
+    
    
     
 }

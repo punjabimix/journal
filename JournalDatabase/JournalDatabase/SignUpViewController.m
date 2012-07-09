@@ -65,7 +65,6 @@
         [self.lifeDatabase saveToURL:self.lifeDatabase.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
             [self setupLoginFetchedResultsController];
             //[self fetchFlickerDataIntoDocument:self.photoDatabase];
-            
         }];
     } else if (self.lifeDatabase.documentState == UIDocumentStateClosed) {
         [self.lifeDatabase openWithCompletionHandler:^(BOOL success) {
@@ -92,6 +91,13 @@
     BOOL emailExit = [Login doesEmailExit:self.email.text inManangedObjectContext:self.lifeDatabase.managedObjectContext];
     
     if(emailExit == YES) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @""
+                              message: @"Email already in use"
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
         //alert
         NSLog(@"User already exists.");
     } else {
@@ -105,18 +111,35 @@
         User *user = [User userWithInfo:userInfo inManagedObjectContext:self.lifeDatabase.managedObjectContext];
         login.user = user;
         
-    if(([LifeString stringIsEmpty:self.firstName.text]) || 
-       ([LifeString stringIsEmpty:self.lastName.text]) || 
-       ([LifeString stringIsEmpty:self.email.text]) || 
-       ([LifeString stringIsEmpty:self.confirmEmail.text]) || 
-       ([LifeString stringIsEmpty:self.password.text]) || 
-       ([LifeString stringIsEmpty:self.confirmPassword.text])) {
+    if([LifeString stringIsEmpty:self.firstName.text]) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @""
+                              message: @"Enter First Name!"
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
+        
         //******************* make field red or alert
         
     }
-    else if(![self.email.text isEqualToString:self.confirmEmail.text]) {
+    else if(![self.email.text isEqualToString:self.confirmEmail.text] || ([LifeString stringIsEmpty:self.email.text]) || ([LifeString stringIsEmpty:self.confirmEmail.text])) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @""
+                              message: @"Emails do not match!"
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
         //throw error , make red
-    } else if (![self.password.text isEqualToString:self.confirmPassword.text]) {
+    } else if (![self.password.text isEqualToString:self.confirmPassword.text] || ([LifeString stringIsEmpty:self.password.text]) || ([LifeString stringIsEmpty:self.confirmPassword.text])) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @""
+                              message: @"Passwords do not match!"
+                              delegate: nil
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
         //throw error, make red
     } else {
         NSDictionary *loginInfo = [NSDictionary dictionaryWithObjectsAndKeys:self.email.text, @"LOGIN_INFO_EMAIL", self.password.text, @"LOGIN_INFO_PASSWORD", nil];
